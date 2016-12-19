@@ -11,5 +11,5 @@ require('./server/config/mongoose.js');
 require('./server/config/routes.js')(app);
 
 app.listen(8000, function(){
-	console.log("Sample project now running on port 8000");
+	console.log("mock craigslist now running on port 8000");
 })
