@@ -1,0 +1,5 @@
+<a href="#/user/{{user.event_id}}" >{{ event.name }}</a>
+			<p>{{ event.description }}</p>
+			<p>{{ event.poster }}</p>
+			<p ng-bind="event.created_at | date: 'MMMM, dd, yyyy - h:ma'"></p>
+			

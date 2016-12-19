@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema ({
 	pic_url: {type: String},
 	email: {type: String, required: true},
 	password: {type: String, required: true}, 
+	comms: [{type: Schema.Types.ObjectId, ref: "Community"}],
 	_intro: {type: Schema.Types.ObjectId, ref: "Intro"},
 	ranking: {type: Number}},
 	{timestamps: true});

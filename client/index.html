@@ -8,7 +8,11 @@
     <script src="angular-route/angular-route.min.js"></script>
 
 	<script src="./assets/config.js"></script>
-	<script src="./factories/Factory.js"></script>
+	<script src="./factories/userFactory.js"></script>
+	<script src="./factories/introFactory.js"></script>
+	<script src="./factories/interFactory.js"></script>
+	<script src="./factories/eventFactory.js"></script>
+	<script src="./factories/commFactory.js"></script>
 	<script src="./controllers/mainController.js"></script>
 
 
@@ -16,8 +20,13 @@
 
 
 <body ng-app="app">
-	<a href="/">Dashboard</a>
-	<br><hr>
+	<div id="header">
+		<h3>Welcome to this app!</h3>
+		<a href="/comms">Communities</a>
+		<a href="/mycomm">Dashboard</a>
+
+
+	</div>
 
 	<div ng-view=""></div>
 
