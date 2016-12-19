@@ -1,0 +1,14 @@
+{
+  "name": "sample",
+  "authors": [
+    "itsclareleme <clarelee0106@gmail.com>"
+  ],
+  "description": "sample mean structure",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-route": "^1.6.0"
+  }
+}
