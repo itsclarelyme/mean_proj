@@ -1,22 +1,17 @@
-app.controller('mainController', ['$scope', 'Factory', function($scope, Factory){
+console.log("Main dashboard controller...");
+app.controller('mainController', ['$scope', 'usersFactory', function($scope, usersFactory){
 	//scope variable
-	$scope.items = [];
-	$scope.item = {};
+	$scope.login_user = {};
+	
+	var login_userIndex = function() {
+      usersFactory.login_index(function (data) {
+        $scope.login_user = data;
+        console.log("login - back to dash controller:");
+        console.log("login user id is " + $scope.login_user._id);
+    }); 
+  }
 
-	var index = function(){
-		Factory.retrieve(function(returnedata){
-			$scope.items = returnedata.data;
-			console.log($scope.items);
-		})
-	}
-	index();
-
-
-
-
-
-
-
+login_userIndex();
 
 
 }]);

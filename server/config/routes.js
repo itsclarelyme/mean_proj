@@ -6,10 +6,14 @@ var Community = mongoose.model('Community');
 var Interaction = mongoose.model('Interaction');
 
 var controller = require('../controllers/controllers.js');
+var users = require('../controllers/users.js');
 
-module.exports = function(app){
-	app.get('/route', function(req, res){
-		console.log('routes name');
-		controller.method(req, res);
-	})
+
+module.exports = function(app) {
+
+  app.get('/users', users.index);
+  app.post('/login', users.login);
+  app.post('/register', users.register);
+
 }
+

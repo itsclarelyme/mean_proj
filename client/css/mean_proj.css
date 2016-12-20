@@ -1,0 +1,235 @@
+/*CSS reset settings here*/
+*{
+ 	margin: 0px;
+ 	padding: 0px;
+}
+#header-text{
+	font-weight: bold;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	color: #ffa500;
+	margin-left: 40px;
+	margin-bottom: 30px;
+	font-size: 28pt;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#main-view{
+	font-family: 'Lato', verdana, arial, sans-serif;
+}
+
+.underline-text{
+	font-weight: bold;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-size: 14pt;
+	text-decoration: underline;
+	margin-left: 30px;
+
+}
+
+.center-text{
+	font-family: 'Lato', verdana, arial, sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+
+#login-text{
+	font-family: verdana, arial, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #0085B2;
+}
+
+#login-container{
+	border: 1px solid black;
+	margin: 0px auto;
+	height: auto;
+	width: 440px;
+	background-color: white;
+	color: black;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	border-radius: 12px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
+
+.headline-text{
+	font-weight: bold;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-size: 20pt;
+	text-decoration: underline;
+	margin-left: 20px;
+
+}
+
+.action-text{
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+
+.div-header{
+	font-size: 13pt;
+	font-family: verdana, arial, sans-serif;
+	margin-top: 10px;
+	color: green;
+}
+
+#new-user{
+	font-size: 8pt;
+	margin-left: 10px;
+}
+
+
+#top-nav{
+	margin: 0px auto;
+	height: 70px;
+	width: 440px;
+	padding-top: 10px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 100px;
+
+
+}
+
+.community{
+	margin-left: 40px;
+}
+
+#user-text{
+	color: #570810;
+}
+
+#form-container{
+	margin: 0px auto;
+	height: 300px;
+	width: 600px;
+	padding-top: 10px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	border-radius: 8px;
+	text-align: left;
+}
+
+#dash-container{
+	margin: 0px auto;
+	height: auto;
+	width: 440px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	border-radius: 8px;
+	text-align: left;
+	margin-top: 100px;
+}
+
+
+.table-heading{
+	padding-right: 10px;
+	border: 2px solid black;
+	width: auto;
+}
+
+.table-data{
+	padding: 5px;
+	border: 1px solid black;
+	width: auto;
+	/*white-space: nowrap;*/
+}
+
+#table-data2{
+	white-space: nowrap;
+	border: 1px solid black;
+	padding: 5px;
+
+}
+
+
+#submit-button{
+	width: 100px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-weight: bold;
+	background-color: blue;
+	color: white;
+	margin-left: 300px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+.btn-success{
+	margin-left: 180px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+.btn-primary{
+	margin-left: 5px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+
+#submit-button2{
+	width: 100px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-weight: bold;
+	background-color: blue;
+	color: white;
+	display: inline-block;
+}
+
+.form-label{
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+#ln-label{
+	margin-left: 10px;
+}
+
+#comment-text{
+	width: 400px;
+	height: 70px;
+	font-family: 'Lato', verdana, arial, sans-serif;
+
+}
+
+#option-box1{
+	margin-left: 100px;
+}
+.option-text{
+	font-family: 'Lato', verdana, arial, sans-serif;
+	font-size: 14pt;
+}
+
+
+.form-text{
+	font-family: 'Lato', verdana, arial, sans-serif;
+	width: 200px;
+}
+
+.thumb-nail{
+	width: 200px;
+	height: 200px;
+}
+
+
+#description-text{
+	font-family: 'Lato', verdana, arial, sans-serif;
+	width: 300px;
+	height: 100px;
+	font-size: 12pt;
+}
+
+#bad-validation{
+	color: red;
+	margin-left: 20px;
+}
+
+.validation-error{
+	margin-left: 10px;
+	width: 250px;
+	height: auto;
+	list-style-type: none
+}

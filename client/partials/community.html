@@ -1,6 +1,7 @@
-<h1>Communities</h1>
 
-<div class="row">
+<h1 class="headline-text">Communities</h1>
+
+<div class="community">
   <table class="table">
     <thead>
       <tr>
@@ -19,13 +20,13 @@
   </table>
 </div>
 
-<div class="row">
+<div class="community">
     <h2>Add community</h2>
     <form ng-submit="createCommunity()" class="form-inline">
       <div class="form-group">
         <label for="communityName">Community Name</label>
         <input type="text" class="form-control" id="communityName" ng-model="newcommunity.name">
       </div>
-      <button type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

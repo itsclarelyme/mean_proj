@@ -7,7 +7,7 @@ var introSchema = new mongoose.Schema ({
 	phone: {type: Number},
 	about: {type: String},
 	occupation: {type: String},
-	age: {type: Number},
+	dob: {type: Date},
 	gender: {type: String},
 	comms: [{type: Schema.Types.ObjectId, ref: "Community"}]},
 	{timestamps: true});

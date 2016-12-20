@@ -9,6 +9,7 @@
   "homepage": "",
   "dependencies": {
     "angular": "^1.6.0",
-    "angular-route": "^1.6.0"
+    "angular-route": "^1.6.0",
+    "angular-cookies": "^1.6.0"
   }
 }

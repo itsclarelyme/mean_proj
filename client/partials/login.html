@@ -1,18 +1,16 @@
 
-<h3>Welcome! ( - :<br/></h3>
-  <div class="form">
-    <label>E-mail Address</label>
-    <div class="inputs">  
-      <input ng-model="user.email" placeholder="E-mail"/>
-     </div> <br>
-     <label>Password</label>
-     <div class="inputs">  
-     <input ng-model="user.password" placeholder="Password"/>
-     
-    </div> 
+  <div id="login-container">
+    <h3>Login<br/></h3>
+   <p id="bad-validation">{{ errors.login_reg.message }}
+    <form name='loginForm' ng-submit="loginForm.$valid && login()">
+      <label class="form-label">E-mail Address:</label> 
+        <input type="email" class="form-text" ng-model="userLogin.email" placeholder="Please enter your e-mail" required/>
+       <br>
+       <label class="form-label">Password:</label>
+       <input type="password" class="form-text" ng-model="userLogin.password" placeholder="Please enter your password" required/> 
+
+       <a id="new-user" href="#!/register">New User? Click Here to Register</a>
+       <input class="btn btn-primary" type="submit" value="Submit">
+     </form>
   </div>
-  <div class="form-group"><br>
-    <button>Submit</button><!-- </a> -->
-  </div>
-    <a href="#!/registration">Create an Account</a></li>
-</div>
+
