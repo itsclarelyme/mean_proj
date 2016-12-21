@@ -20,7 +20,15 @@ app.config(function($routeProvider){
 	})
 	.when('/comms', {
 		templateUrl: "partials/community.html", 
-		controller: "CommunitiesController"
+		controller: "commController"
+	})
+	.when('/comm/:id', {
+		templateUrl: "partials/comm.html", 
+		controller: "commController"
+	})
+	.when('/mycomm', {
+		templateUrl: "partials/mycomm.html", 
+		controller: "mycommController"
 	})
 	.otherwise({
 		redirectTo: '/'

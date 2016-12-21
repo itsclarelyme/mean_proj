@@ -9,6 +9,7 @@ var userSchema = new mongoose.Schema ({
 	email: {type: String, required: true, unique: true}, // avoid dups
 	password: {type: String, required: true}, 
 	comms: [{type: Schema.Types.ObjectId, ref: "Community"}],
+	req_comms: [{type: Schema.Types.ObjectId, ref: "Community"}],
 	_intro: {type: Schema.Types.ObjectId, ref: "Intro"},
 	ranking: {type: Number}},
 	{timestamps: true});

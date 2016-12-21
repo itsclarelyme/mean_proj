@@ -1,7 +1,15 @@
 
 <h1 class="headline-text">Communities</h1>
 
+<!-- <hr>{{communities}}<hr>
+{{users}}<hr>
+{{user}}<hr> -->
+
 <div class="community">
+
+
+
+  <h3>Communities</h3>
   <table class="table">
     <thead>
       <tr>
@@ -12,9 +20,9 @@
     </thead>
     <tbody>
       <tr ng-repeat='community in communities'>
-        <td><a href="#/community/{{community.id}}" >{{ community.name }} *******</a></td>
+        <td><a href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
-        <td><button ng-click="participate_community(community._id)">Participate</button></td>
+        <td><p ng-if="isRequest(community)">Request Pending</p><button ng-if="isMember(community)">Enter Community</button><button ng-if="!isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
       </tr>
     </tbody>
   </table>
@@ -22,11 +30,15 @@
 
 <div class="community">
     <h2>Add community</h2>
-    <form ng-submit="createCommunity()" class="form-inline">
+    <form ng-submit="createComm()" class="form-inline">
       <div class="form-group">
         <label for="communityName">Community Name</label>
-        <input type="text" class="form-control" id="communityName" ng-model="newcommunity.name">
+        <input type="text" class="form-control" id="communityName" ng-model="community.comm_name">
+        <label for="communityLocation">Location</label>
+        <input type="text" ng-model="community.location" placeholder="city">
+        <input type="hidden" ng-model="community.admin" ng-value="{{user}}">
       </div>
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit">Create new Community</button>
     </form>
+
 </div>
