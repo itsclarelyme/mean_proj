@@ -74,6 +74,7 @@ function Controller(){
 		})
 	}
 
+
 	this.comm_req = function(req, res){
 		console.log("controller request to join comm");
 		User.findOne({_id: req.body.user}, function(err, user){

@@ -8,8 +8,7 @@ app.controller('commController', ['$scope', 'commFactory', 'usersFactory', funct
 
 	var get_login_session = function(user_id) {
      	usersFactory.login_index(user_id, function (data) {
-      	$scope.login_user = data;
-        
+      	$scope.user = data;
       	console.log("login - back to dash controller:");
       	console.log("login user object " + $scope.user);
     	}); 
@@ -24,14 +23,14 @@ app.controller('commController', ['$scope', 'commFactory', 'usersFactory', funct
   		console.log("user not logged in"); 
   	}
 
-	var user_index = function(){
-		usersFactory.retrieve_user(function(returnedata){
-			$scope.users = returnedata.data;
-			console.log("user_index");
-			console.log($scope.user);
-		})
-	}
-	user_index();
+	// var user_index = function(){
+	// 	usersFactory.retrieve_user(function(returnedata){
+	// 		$scope.users = returnedata.data;
+	// 		console.log("user_index");
+	// 		console.log($scope.user);
+	// 	})
+	// }
+	// user_index();
 
 	var comm_index = function(){
 		commFactory.retrieve_comm(function(returnedata){
