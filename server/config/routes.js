@@ -18,6 +18,7 @@ module.exports = function(app) {
   app.post('/register', users.register);
   app.post('/profile', users.add_profile);
 
+
   	app.get('/comm', function(req, res){
 		console.log('retrieve all community');
 		controller.comm_get(req, res);
@@ -72,8 +73,6 @@ module.exports = function(app) {
 		console.log("getting all events from comm");
 		controller.get_event(req, res);
 	})
-
-
 
 }
 

@@ -8,11 +8,7 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
   function UsersFactory(){
 
     var _this = this;
-<<<<<<< HEAD
      this.index = function(callback){
-=======
-    this.index = function(callback){
->>>>>>> aed8b637d4531f54f2187341573dbbbf229dc615
       $http.get('/users').then(function(returned_data){
         console.log(returned_data);
         if (typeof(callback) == 'function'){
@@ -72,7 +68,39 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       });
     };
 
-<<<<<<< HEAD
+        // this.get_info = function(user, callback){
+    //   $http.get('/user/' + user._id).then(function(returned_data){
+    //     console.log("factory get all user info");
+    //     //console.log(returned_data);
+    //     user = returned_data.data;
+    //     if(typeof(callback) == 'function'){
+    //       callback(user);
+    //     }
+    //   })
+    // }
+
+
+    
+  // this.add_user = function(newuser, callback){
+  //     $http.post('/user/new', newuser).then(function(data){
+  //       console.log(data);
+  //       user = data.data;
+  //       if(typeof(callback) == 'function'){
+  //         callback(data);
+  //       }
+  //     })
+  //   }
+
+  // this.retrieve_user = function(callback){
+  //   $http.get('/user').then(function(data){
+  //     console.log(data);
+  //     users = data.data;
+  //     if(typeof(callback) == 'function'){
+  //       callback(data);
+  //     }
+  //   })
+  // }
+
     this.add_profile = function(profile, callback){
       console.log("inside factory adding profile intro...")
       console.log(profile);
@@ -91,21 +119,9 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       });
     };
 
-=======
-    this.get_info = function(user, callback){
-      $http.get('/user/' + user._id).then(function(returned_data){
-        console.log("factory get all user info");
-        //console.log(returned_data);
-        user = returned_data.data;
-        if(typeof(callback) == 'function'){
-          callback(user);
-        }
-      })
-    }
->>>>>>> aed8b637d4531f54f2187341573dbbbf229dc615
 
     this.show = function(user_id, callback){
-        $http.post('/user/info', user).then(function(returned_data){
+        $http.get('/users/'+user_id).then(function(returned_data){
           console.log(returned_data.data);
           if (typeof(callback) == 'function'){
             callback(returned_data.data);
@@ -131,10 +147,10 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       $cookies.remove("login_user");
     }
    
-  
+  }
 
-  this.add_user = function(newuser, callback){
-      $http.post('/user/new', newuser).then(function(data){
+    this.remove_req = function(doc, callback){
+      $http.post('/req/remove', doc).then(function(data){
         console.log(data);
         user = data.data;
         if(typeof(callback) == 'function'){
@@ -142,45 +158,6 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
         }
       })
     }
-
-  this.retrieve_user = function(callback){
-    $http.get('/user').then(function(data){
-      console.log(data);
-      users = data.data;
-      if(typeof(callback) == 'function'){
-        callback(data);
-      }
-    })
-  }
-
-  this.remove_req = function(doc, callback){
-    $http.post('/req/remove', doc).then(function(data){
-      console.log(data);
-      user = data.data;
-      if(typeof(callback) == 'function'){
-        callback(data);
-      }
-    })
-  }
-
-<<<<<<< HEAD
-    this.remove_req = function(doc, callback){
-    $http.post('/req/remove', doc).then(function(data){
-      console.log(data);
-      user = data.data;
-      if(typeof(callback) == 'function'){
-        callback(data);
-      }
-      })
-    }
-=======
-
-
-
-
-  }
-
->>>>>>> aed8b637d4531f54f2187341573dbbbf229dc615
 
   return new UsersFactory();
 
