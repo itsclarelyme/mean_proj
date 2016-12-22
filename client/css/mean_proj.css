@@ -126,8 +126,8 @@
 
 
 #top-banner{
-	height: 400px;
-	width: 900px;
+	height: 450px;
+	width: 810px;
 	margin: 0px auto;
 	display: block;
 }
@@ -139,6 +139,10 @@
 
 }
 
+button.btn.btn-primary{
+	margin: 0px;
+	
+}
 
 body{
 	background:url('../images/background.png');
@@ -170,7 +174,7 @@ body{
 }
 
 #user-text{
-	color: #89d0f0;
+	color: blue;
 	font-weight: bold;
 }
 
@@ -233,10 +237,7 @@ body{
 	margin: 0px auto;
 }
 
-.comm-table{
-	background-color: #008B8B;
-	width: 100%;
-}
+
 
 .table-heading{
 	padding-right: 10px;
