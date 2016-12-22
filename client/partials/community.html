@@ -4,11 +4,9 @@
 <!-- <hr>{{communities}}<hr>
 {{users}}<hr>
 {{user}}<hr> -->
-{{user}}<hr>
+<hr>
 
 <div class="community">
-
-  <h3>Communities</h3>
 
   <table class="table">
     <thead>
@@ -20,9 +18,9 @@
     </thead>
     <tbody>
       <tr ng-repeat='community in communities'>
-        <td><a href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
+        <td><a style="font-weight: bold" href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
-        <td><p ng-if="isRequest(community)">Request Pending</p><button ng-if="isMember(community)">Enter Community</button><button ng-if="!isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
+        <td><p ng-if="isRequest(community)">Request Pending</p><button class="btn btn-danger" ng-if="isMember(community)">Enter Community</button><button class="btn btn-danger" ng-if="!isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
       </tr>
     </tbody>
   </table>

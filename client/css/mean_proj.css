@@ -37,14 +37,14 @@
 	font-family: verdana, arial, sans-serif;
 	font-weight: bold;
 	font-size: 14pt;
-	color: #0085B2;
+	color: white;
 }
 
 #logout-text{
 	font-family: verdana, arial, sans-serif;
 	font-weight: bold;
 	font-size: 10pt;
-	color: #0085B2;
+	color: white;
 	text-align: center;
 }
 
@@ -88,7 +88,7 @@
 	font-family: 'Lato', verdana, arial, sans-serif;
 	font-size: 20pt;
 	text-decoration: underline;
-	margin-left: 20px;
+	margin-left: 60px;
 	color: white;
 
 }
@@ -161,7 +161,7 @@ body{
 }
 
 .community{
-	margin-left: 40px;
+	margin-left: 50px;
 	color: white;
 }
 
@@ -170,7 +170,7 @@ body{
 }
 
 #user-text{
-	color: #570810;
+	color: blue;
 	font-weight: bold;
 }
 
@@ -226,7 +226,7 @@ body{
 	font-family: 'Lato', verdana, arial, sans-serif;
 	border-radius: 8px;
 	text-align: left;
-	margin-top: 100px;
+	margin-top: 10px;
 }
 
 #logout-contain{
