@@ -5,6 +5,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 	$scope.comm = {};
 	$scope.part={};
 	$scope.message = {};
+	$scope.messages = [];
 
 	
 	var get_login_session = function(user_id) {
@@ -31,16 +32,22 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 		eventFactory.get_info($routeParams, function(returndata){
 			$scope.thisevent = returndata.data;
 			console.log($scope.thisevent);
+			msg_index();
 		})
 	}
 	event_index();
 
 	//GET ALL MSG FROM THIS EVENT
 	var msg_index = function(){
-		// eventFactory.get_msg($scope.thisevent, function(returndata){
-
-		// })
+		console.log("msg_index running");
+		console.log($scope.thisevent);
+		eventFactory.get_msg($scope.thisevent, function(returndata){
+			$scope.messages = returndata.data;
+			console.log($scope.messages);
+		})
 	}
+	event_index();
+	
 
 
 	//check if user is a member
@@ -79,6 +86,8 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 	}
 
 	$scope.isPoster = function(){
+		// console.log($scope.thisevent.poster._id);
+		// console.log($scope.user._id);
 		if($scope.thisevent.poster._id == $scope.user._id){
 			return true;
 		}
@@ -105,10 +114,12 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 	}
 
 	$scope.add_msg = function(){
-		$scope.message.author = $scope.user;
-		$scope.amessage._event = $scope.thisevent;
+		$scope.message._author = $scope.user;
+		$scope.message._event = $scope.thisevent;
+		console.log($scope.message);
 		eventFactory.add_msg($scope.message, function(returndata){
-			$scope.thisevent = returndata.data;
+			console.log(returndata);
+			$scope.messages = returndata;
 			$scope.message = {};
 		})
 	}

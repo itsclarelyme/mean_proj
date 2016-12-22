@@ -150,7 +150,7 @@ function Controller(){
 			}
 			//console.log(user);
 			//update community request list
-			Community.update({_id: req.body.comm}, {$pull: {req_comms: req.body.user}}).exec(function(err, comm){
+			Community.update({_id: req.body.comm}, {$pull: {requester: req.body.user}}).exec(function(err, comm){
 				if(err){
 					console.log("Error in controller: ", + err);
 				}
@@ -197,18 +197,44 @@ function Controller(){
 			if(err){
 				console.log("error getting event info: " + err);
 			}
-			console.log(thisevent);
-			console.log(req.body);
+			//console.log(thisevent);
+			//console.log(req.body);
 			User.findOne({_id: req.body.user}, function(err, thisuser){
 				if(err){
 					console.log("error getting event info: " + err);
 				}	
 
-				console.log(thisuser);
+				//console.log(thisuser);
 				thisevent.participants.push(thisuser);
 				thisevent.save();
 				res.redirect('/event/' + req.body.thisevent);
 			})
+		})
+	}
+
+	this.get_msg = function(req, res){
+		//console.log("controller get msg for this event");
+		//console.log(req.params);
+		Message.find({_event: req.params.evntid}, function(err, data){
+			if(err){
+				console.log("Error in controller: " + err);
+			}
+			//console.log("these are all teh msgs");
+			//console.log(data);
+			res.json(data);
+		})
+	}
+
+	this.add_msg = function(req, res){
+		//console.log("adding a new msg");
+		//console.log(req.body);
+		var newmsg = new Message(req.body);
+		newmsg.save(function(err, msg){
+			if(err){
+				console.log("Error in controller: " + err);
+			}
+			//console.log(msg);
+			res.redirect('/msg/' + msg._event);
 		})
 	}
 

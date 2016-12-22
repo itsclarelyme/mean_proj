@@ -82,6 +82,16 @@ module.exports = function(app) {
 		controller.join_event(req, res);
 	})
 
+	app.get('/msg/:evntid', function(req, res){
+		console.log("getting all msgs from event");
+		controller.get_msg(req, res);
+	})
+
+	app.post('/msg/new', function(req, res){
+		console.log("adding a new msg");
+		controller.add_msg(req, res);
+	})
+
 
 
 
