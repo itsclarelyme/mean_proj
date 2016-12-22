@@ -1,16 +1,36 @@
 
+ <div id="logout-contain">
+   <p ng-show="logout == true" id="logout-text">UserId [<span id="user-text">{{ login_user.email }}</span>] logged out!</p>
+ </div>  
   <div id="login-container">
     <h3>Login<br/></h3>
-   <p id="bad-validation">{{ errors.login_reg.message }}
+   <p id="bad-validation">{{ errors.login_reg.message }}</p>
     <form name='loginForm' ng-submit="loginForm.$valid && login()">
-      <label class="form-label">E-mail Address:</label> 
-        <input type="email" class="form-text" ng-model="userLogin.email" placeholder="Please enter your e-mail" required/>
-       <br>
-       <label class="form-label">Password:</label>
-       <input type="password" class="form-text" ng-model="userLogin.password" placeholder="Please enter your password" required/> 
+      <div class="form-group" ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
+          <div class="col-lg-8" >
+            <div ng-messages="loginForm.username.$error">
+              <p id="bad-validation" ng-message="required">Email address is required</p>
+            </div>
+            <label class="form-label">E-mail Address:</label> 
+            <input name="username" type="email" class="form-control" ng-model="userLogin.email" placeholder="Please enter your e-mail" required/>
+          </div>
+      </div>
+           <br>
+        
+        <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+          <div class="col-lg-8">
+          <br>
+          <div ng-messages="loginForm.password.$error">
+            <p id="bad-validation" ng-message="required">Password is required</p>
+          </div>
+           <label class="form-label">Password:</label>
+           <input name= "password" type="password" class="form-control" ng-model="userLogin.password" placeholder="Please enter your password" required/> 
+          </div>
+        </div>
+           <a id="new-user" href="#!/register">New User? Click Here to Register</a>
+           <input class="btn btn-primary" type="submit" value="Submit" ng-disabled="loginForm.$invalid">
 
-       <a id="new-user" href="#!/register">New User? Click Here to Register</a>
-       <input class="btn btn-primary" type="submit" value="Submit">
+    
      </form>
   </div>
 
