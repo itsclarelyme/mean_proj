@@ -60,6 +60,7 @@ function Controller(){
 			if(err){
 				console.log("error finding one user: " + err);
 			}
+			console.log(user);
 			var newcomm = new Community(req.body);
 			newcomm.member.push(user);
 			user.comms.push(newcomm);

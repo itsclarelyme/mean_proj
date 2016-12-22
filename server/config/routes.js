@@ -18,6 +18,8 @@ module.exports = function(app) {
   app.post('/register', users.register);
   app.post('/profile', users.add_profile);
 
+  	
+
 
   	app.get('/comm', function(req, res){
 		console.log('retrieve all community');

@@ -7,9 +7,6 @@
 
 <div class="community">
 
-
-
-  <h3>Communities</h3>
   <table class="table">
     <thead>
       <tr>
@@ -35,7 +32,7 @@
         <label for="communityName">Community Name</label>
         <input type="text" class="form-control" id="communityName" ng-model="community.comm_name">
         <label for="communityLocation">Location</label>
-        <input type="text" ng-model="community.location" placeholder="city">
+        <input id="comm_city" type="text" ng-model="community.location" placeholder="city">
         <input type="hidden" ng-model="community.admin" ng-value="{{user}}">
       </div>
       <button class="btn btn-primary" type="submit">Create new Community</button>

@@ -47,6 +47,23 @@
 
 		<a class="div-header" href="#!/comms">Communities</a> | <a class="div-header" href="#!/mycomm">Dashboard</a> |  <a class="div-header" href="#!/login">Login</a> |  <a class="div-header" href="#!/register">Register</a> | <a class="div-header" href="#!/logout">Logout</a> 
 
+		<md-content class="md-padding" style="background:#086A87">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="goto('page1')" name="page1">
+              <ng-md-icon icon="phone" style="fill:wheat" size="20"></ng-md-icon>Personal Information
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page2')" name="page2">
+              <ng-md-icon icon="mode_edit" style="fill: wheat" size="20"></ng-md-icon>Edit
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page3')" name="page3">
+              <ng-md-icon icon="print" style="fill: wheat" size="20"></ng-md-icon>Print Detail1
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page4')" name="page4">
+                <ng-md-icon icon="print" style="fill: wheat" size="20"></ng-md-icon>Print Detail2      
+      </md-nav-item>
+    </md-nav-bar>
+</md-content>  
+
 	</div>
 
 	<div id="main-view" ng-view=""></div>

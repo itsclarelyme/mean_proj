@@ -89,6 +89,7 @@
 	font-size: 20pt;
 	text-decoration: underline;
 	margin-left: 20px;
+	color: white;
 
 }
 
@@ -161,6 +162,11 @@ body{
 
 .community{
 	margin-left: 40px;
+	color: white;
+}
+
+#comm_city{
+	color: black;
 }
 
 #user-text{

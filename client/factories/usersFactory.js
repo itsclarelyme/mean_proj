@@ -68,38 +68,38 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       });
     };
 
-        // this.get_info = function(user, callback){
-    //   $http.get('/user/' + user._id).then(function(returned_data){
-    //     console.log("factory get all user info");
-    //     //console.log(returned_data);
-    //     user = returned_data.data;
-    //     if(typeof(callback) == 'function'){
-    //       callback(user);
-    //     }
-    //   })
-    // }
+        this.get_info = function(user, callback){
+      $http.get('/user/' + user._id).then(function(returned_data){
+        console.log("factory get all user info");
+        //console.log(returned_data);
+        user = returned_data.data;
+        if(typeof(callback) == 'function'){
+          callback(user);
+        }
+      })
+    }
 
 
     
-  // this.add_user = function(newuser, callback){
-  //     $http.post('/user/new', newuser).then(function(data){
-  //       console.log(data);
-  //       user = data.data;
-  //       if(typeof(callback) == 'function'){
-  //         callback(data);
-  //       }
-  //     })
-  //   }
+  this.add_user = function(newuser, callback){
+      $http.post('/user/new', newuser).then(function(data){
+        console.log(data);
+        user = data.data;
+        if(typeof(callback) == 'function'){
+          callback(data);
+        }
+      })
+    }
 
-  // this.retrieve_user = function(callback){
-  //   $http.get('/user').then(function(data){
-  //     console.log(data);
-  //     users = data.data;
-  //     if(typeof(callback) == 'function'){
-  //       callback(data);
-  //     }
-  //   })
-  // }
+  this.retrieve_user = function(callback){
+    $http.get('/user').then(function(data){
+      console.log(data);
+      users = data.data;
+      if(typeof(callback) == 'function'){
+        callback(data);
+      }
+    })
+  }
 
     this.add_profile = function(profile, callback){
       console.log("inside factory adding profile intro...")
