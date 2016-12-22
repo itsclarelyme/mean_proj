@@ -4,7 +4,7 @@ var User = mongoose.model('User');
 var Event = mongoose.model('Event');
 var Intro = mongoose.model('Intro');
 var Community = mongoose.model('Community');
-var Interaction = mongoose.model('Interaction');
+var Message = mongoose.model('Message');
 
 function Controller(){
 	// this.comm_get = function(req, res){
@@ -185,6 +185,24 @@ function Controller(){
 			}
 			console.log(thisevent);
 			res.json(thisevent);
+		})
+	}
+
+
+	this.join_event = function(req, res){
+		console.log("controller this user is joining this event");
+		Event.findOne({_id : req.body.thisevent}, function(err, thisevent){
+			if(err){
+				console.log("error getting event info: " + err);
+			}
+			User.findOne({_id: req.body.user}, function(err, thisuser){
+				if(err){
+					console.log("error getting event info: " + err);
+				}	
+				thisevent.participants.push(thisuser);
+				thisevent.save();
+				res.redirect('/event/' + req.body.thisevent);
+			})
 		})
 	}
 

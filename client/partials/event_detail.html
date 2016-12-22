@@ -1,5 +1,33 @@
-<a href="#/user/{{user.event_id}}" >{{ event.name }}</a>
-			<p>{{ event.description }}</p>
-			<p>{{ event.poster }}</p>
-			<p ng-bind="event.created_at | date: 'MMMM, dd, yyyy - h:ma'"></p>
-			
+{{thisevent}}
+
+<div>
+
+	<h3 class="center-text" ng-bind="thisevent.title"></h3>
+	<h4 ng-bind="thisevent.description"></h4>
+	<p>Posted by <span class="action-text">{{thisevent.poster.name}}</span> on {{thisevent.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</p>
+
+
+	<div ng-if="!isPart()">
+		<button class='btn-primary' ng-click="join_part()">Participate in this post</button>
+	</div>
+
+	<div ng-if="isPoster() || isPart()">
+
+		<div ng-if="!thisevent.status">
+			<textarea ng-model="message.msg" rows="2" cols="65" placeholder="Leave a comment"></textarea>
+			<input class="btn-primary" type="submit" ng-click="add_msg()" value="Post">
+
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+</div>

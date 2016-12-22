@@ -3,7 +3,7 @@ var User = mongoose.model('User');
 var Event = mongoose.model('Event');
 var Intro = mongoose.model('Intro');
 var Community = mongoose.model('Community');
-var Interaction = mongoose.model('Interaction');
+var Message = mongoose.model('Message');
 
 var controller = require('../controllers/controllers.js');
 var users = require('../controllers/users.js');
@@ -68,6 +68,11 @@ module.exports = function(app) {
 	app.get('/event/:id', function(req, res){
 		console.log("getting all events from comm");
 		controller.get_event(req, res);
+	})
+
+	app.post('/event/join', function(req, res){
+		console.log("joinning this event");
+		controller.join_event(req, res);
 	})
 
 

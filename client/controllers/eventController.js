@@ -5,16 +5,25 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 	$scope.comm = {};
 
 
-	//REQUEST FOR ALL THE INFO FROM THE USER
-	var user_index = function(){
-		//CHANGE TO CORRESPOND TO SESSION
-		$scope.user = {"_id": "58597f88ae35afc190daf659"};
-		usersFactory.get_info($scope.user, function(returndata){
-			$scope.user = returndata;
-			//console.log($scope.user);
-		})
-	}
-	user_index();
+	
+	var get_login_session = function(user_id) {
+      	usersFactory.login_index(user_id, function (data) {
+      	$scope.login_user = data;
+        
+      	console.log("login - back to dash controller:");
+      	console.log("login user object " + $scope.login_user);
+
+    	}); 
+  	}
+
+  	if(usersFactory.getCookieData()){
+    	console.log("cookie exists"); 
+    	// calls to check if session exists 
+    	get_login_session(usersFactory.getCookieData());
+  	}
+  	else{
+  		$location.url('/');
+  	}
 
 	//REQUEST FOR ALL THE INFO FOR COMM IN URL ROUTE
 	var comm_index = function(){

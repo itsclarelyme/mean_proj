@@ -47,6 +47,16 @@ app.factory('eventFactory', ['$http', function($http){
 			})
 		}
 
+		this.join_part = function(part, callback){
+			$http.post('/event/join', part).then(function(data){
+				console.log(data);
+				thisevent = data.data;
+				if (typeof(callback) == 'function') {
+					callback(data);
+				};
+			})
+		}
+
 
 
 
