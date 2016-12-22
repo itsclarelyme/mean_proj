@@ -1,3 +1,4 @@
+
 app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$location', function($scope, commFactory, usersFactory, $location){
 
 	$scope.user = {};
@@ -20,7 +21,8 @@ app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$l
       	$scope.user = data;
         
       	console.log("login - back to dash controller:");
-      	console.log("login user object " + $scope.user);
+      	console.log("login user object ");
+      	console.log($scope.user)
 
     	}); 
   	}
@@ -36,10 +38,12 @@ app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$l
 
 
 	$scope.remove_req = function(req_comm){
-		$scope.remove_req={user: $scope.user._id, comm: req_comm};
-		usersFactory.remove_req($scope.remove_req, function(returndate){
-			console.log(returndate);
-			user_index();
+		console.log(req_comm);
+		$scope.rem_req={user: $scope.user._id, comm: req_comm};
+		usersFactory.remove_req($scope.rem_req, function(returndate){
+			console.log(returndate.config.data);
+			get_login_session(usersFactory.getCookieData());
+			
 		})
 	}
 

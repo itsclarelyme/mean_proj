@@ -57,6 +57,26 @@ app.factory('eventFactory', ['$http', function($http){
 			})
 		}
 
+		this.get_msg = function(evnt, callback){
+			console.log("events factory padding with id: ");
+			console.log(evnt);
+			$http.get('/msg/' + evnt._id).then(function(data){
+				console.log(data);
+				if (typeof(callback) == 'function') {
+					callback(data);
+				};
+			})
+		}
+
+		this.add_msg = function(msg, callback){
+			console.log(msg);
+			$http.post('/msg/new', msg).then(function(data){
+				console.log(data);
+				if (typeof(callback) == 'function') {
+					callback(data.data);
+				};
+			})
+		}
 
 
 

@@ -1,5 +1,7 @@
 <div class="community">
 
+
+
 	<h3 class="center-text" ng-bind="thisevent.title"></h3>
 	<h4 ng-bind="thisevent.description"></h4>
 	<p>Posted by <span class="action-text">{{thisevent.poster.name}}</span> on {{thisevent.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</p>
@@ -11,7 +13,13 @@
 
 	<div ng-if="isPoster() || isPart()">
 
+		<div ng-if="isPoster()">
+			<button class='btn btn-danger'>Issue Resolved!</button><br>
+		</div>
+
 		<div>
+		<hr>
+			<p ng-repeat="msg in messages">{{msg.msg}} -- {{msg.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</p>
 
 
 		</div>

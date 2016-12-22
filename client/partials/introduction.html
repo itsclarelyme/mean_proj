@@ -36,12 +36,12 @@
 
           <label class="col-lg-5 form-label2">Gender:</label>
           <div class="col-sm-8">
-               <div ng-messages="introForm.gender.$error">
+                <div ng-messages="introForm.gender.$error">
                   <p id="bad-validation" ng-message="required">Please select your gender</p>
-               </div>
-              <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Male" checked ng-required="!profile.gender"> Male </label>
-             <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Female" ng-required="!profile.gender"> Female </label>
-             <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Other" ng-required="!profile.gender"> Other </label>
+                </div>
+                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Male" checked> Male </label>
+                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Female"> Female </label>
+                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Other"> Other </label>
           </div>
         </div>
 
