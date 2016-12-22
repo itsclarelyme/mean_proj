@@ -21,6 +21,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+
+
 	<script src="./assets/config.js"></script>
 	<script src="./assets/custom_dirs_filters.js"></script>
 	<script src="./factories/usersFactory.js"></script>
@@ -35,6 +37,19 @@
 	<script src="./controllers/evntdetailController.js"></script>
 	<script src="./controllers/LoginRegisterController.js"></script>
 
+	<script type="text/javascript">
+		
+		function myFunction() {
+    	var x = document.getElementById("myTopnav");
+    		if (x.className === "custom-nav") {
+        		x.className += " responsive";
+    		} else {
+        		x.className = "custom-nav";
+    		}
+		}
+
+	</script>
+
 
 </head>
 
@@ -45,9 +60,22 @@
     </div>
 	<div id="top-nav">
 
-		<a class="div-header" href="#!/comms">Communities</a> | <a class="div-header" href="#!/mycomm">Dashboard</a> |  <a class="div-header" href="#!/login">Login</a> |  <a class="div-header" href="#!/register">Register</a> | <a class="div-header" href="#!/logout">Logout</a> 
+		<a class="div-header" href="#!/comms">Communities</a> | <a class="div-header" href="#!/mycomm">Dashboard</a> |  <a class="div-header" href="#!/login">Login</a> |  <a class="div-header" href="#!/register">Register</a> | <a class="div-header" href="#!/logout">Logout</a>
+
+<!-- 		<ul class="custom-nav" id="myTopnav">
+		  <li><a href="#home">Home</a></li>
+		  <li><a href="#news">News</a></li>
+		  <li><a href="#contact">Contact</a></li>
+		  <li><a href="#about">About</a></li>
+		  <li class="icon">
+		    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+		  </li>
+		</ul> -->
+
 
 	</div>
+
+
 
 	<div id="main-view" ng-view=""></div>
 
