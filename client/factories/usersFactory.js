@@ -116,6 +116,16 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
    
   }
 
+    this.remove_req = function(doc, callback){
+    $http.post('/req/remove', doc).then(function(data){
+      console.log(data);
+      user = data.data;
+      if(typeof(callback) == 'function'){
+        callback(data);
+      }
+      })
+    }
+
   return new UsersFactory();
 
 
