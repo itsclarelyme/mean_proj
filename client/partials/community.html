@@ -4,6 +4,7 @@
 <!-- <hr>{{communities}}<hr>
 {{users}}<hr>
 {{user}}<hr> -->
+<hr>
 
 <div class="community">
 
@@ -12,6 +13,7 @@
       <tr>
         <th>Community</th>
         <th>Created Date</th>
+        <th>Details</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -19,13 +21,48 @@
       <tr ng-repeat='community in communities'>
         <td><a style="font-weight: bold" href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
+        <td><!-- Button trigger modal -->
+          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Details
+          </button>
+          
+        </td>
         <td><p ng-if="isRequest(community)">Request Pending</p><button class="btn btn-danger" ng-if="isMember(community)">Enter Community</button><button class="btn btn-danger" ng-if="!isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
       </tr>
     </tbody>
   </table>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">{{ community.comm_name }}</h4>
+            </div>
+            <div class="modal-body">
+              This is the details of {{ community.comm_name }} that was established on {{community.updatedAt | date: "MMM. dd, yyyy"}} ! If you wish to have the opportunity to join in and contribute to the community, we will review your account and accept/decline your request. Thank you for your time.
+              </div>
+            </div>
+          </div>
+        </div>
 
-<div class="community" ng-if="user._id">
+
+   <!--    
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">{{ community.comm_name }}</h4>
+            </div>
+            <div class="modal-body">
+              This is the details of {{ community.comm_name }} that was established on {{community.updatedAt | date: "MMM. dd, yyyy"}} ! If you wish to have the opportunity to join in and contribute to the community, we will review your account and accept/decline your request. Thank you for your time.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+<div class="community">
     <h2>Add community</h2>
     <form ng-submit="createComm()" class="form-inline">
       <div class="form-group">
