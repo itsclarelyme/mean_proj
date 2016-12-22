@@ -14,10 +14,6 @@ app.config(function($routeProvider){
 		templateUrl: "partials/login.html", 
 		controller: "LoginController"
 	})
-	.when('/login:id', {
-		templateUrl: "partials/login.html", 
-		controller: "LoginController"
-	})
 	.when('/logout', {
 		templateUrl: "partials/login.html", 
 		controller: "LogoutController"
