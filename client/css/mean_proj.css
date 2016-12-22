@@ -233,7 +233,10 @@ body{
 	margin: 0px auto;
 }
 
-
+.comm-table{
+	background-color: #008B8B;
+	width: 100%;
+}
 
 .table-heading{
 	padding-right: 10px;
