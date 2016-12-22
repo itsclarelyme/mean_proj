@@ -1,13 +1,19 @@
-<div>
-<!-- 	<hr>{{user}}
-	<hr>{{comm}}
-	<hr>{{events}}
-	<hr> -->
+<div class="community">
 
-	<div ng-if="isMember(comm.member)">
-		<h3>I am a member!</h3>
+	<h3>Welcome to {{comm.comm_name}}!</h3>
+	<div ng-if="!isMember(comm.member)">
+		<h3>Not a member? Send a Request!</h3>
+		<button ng-if="!isReq(comm.requester)">Request to join community</button>
+		<button ng-if="isReq(comm.requester)" disabled>Request Pending</button>
+	</div>
+
+
+
+
+	<div ng-if="isMember(comm.member) || isAdmin(comm.admin)">
+		<!-- <h3>I am a member!</h3> -->
 		<div ng-if="isAdmin(comm.admin)">
-			<h3>I am the Admin!</h3>
+			
 			<div ng-if="comm.requester[0]">
 				<h5>Requests to join the community:</h5>
 				<p ng-repeat="req in comm.requester"><a href="">{{req}}</a></p>
@@ -15,7 +21,7 @@
 
 		</div>
 
-		<a href="/#!/newpost/{{comm._id}}"><button class="btn btn-primary">Create a new post</button></a>
+		<a href="/#!/newpost/{{comm._id}}"><button class="btn btn-danger">Create a new post</button></a>
 
 		<h3>Show recent posts</h3>
 		<table class="table">

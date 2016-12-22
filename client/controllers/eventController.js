@@ -8,10 +8,10 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 	
 	var get_login_session = function(user_id) {
       	usersFactory.login_index(user_id, function (data) {
-      	$scope.login_user = data;
+      	$scope.user = data;
         
       	console.log("login - back to dash controller:");
-      	console.log("login user object " + $scope.login_user);
+      	console.log("login user object " + $scope.user);
 
     	}); 
   	}

@@ -12,7 +12,7 @@ function UsersController() {
 
     this.index_login = function(req, res) {
         console.log("Server - index_log - param id is " + req.params.id)
-        User.findById({_id: req.params.id}).populate('_intro').exec(function(err, data) {
+        User.findById({_id: req.params.id}).populate('_intro').populate('req_comms').populate('comms').exec(function(err, data) {
             if (err){
                 res.json(err);
             }

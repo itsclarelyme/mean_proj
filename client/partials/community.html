@@ -4,7 +4,6 @@
 <!-- <hr>{{communities}}<hr>
 {{users}}<hr>
 {{user}}<hr> -->
-<hr>
 
 <div class="community">
 
@@ -26,7 +25,7 @@
   </table>
 </div>
 
-<div class="community">
+<div class="community" ng-if="user._id">
     <h2>Add community</h2>
     <form ng-submit="createComm()" class="form-inline">
       <div class="form-group">

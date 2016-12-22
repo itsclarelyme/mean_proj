@@ -1,10 +1,6 @@
 
 <h1 class="headline-text">My Communities</h1>
 
-<!-- <hr>
-{{user}}<hr>
-{{user.comms}}<hr>
-{{user.req_comms}} -->
 
 <div class="community">
 
@@ -19,16 +15,16 @@
     </thead>
     <tbody>
       <tr ng-repeat='community in user.comms'>
-        <td><a href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
+        <td>{{ community.comm_name }}</td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
-        <td><a ng-if="!isAdmin(community)" href="/#!/comm/{{community._id}}"><button>Enter Community</button></a><a ng-if="isAdmin(community)" href="/#!/comm/{{community._id}}"><button>Manage Community</button></a></td>
+        <td><a ng-if="!isAdmin(community)" href="/#!/comm/{{community._id}}"><button class="btn btn-danger">Enter Community</button></a><a ng-if="isAdmin(community)" href="/#!/comm/{{community._id}}"><button class="btn btn-danger">Manage Community</button></a></td>
       </tr>
     </tbody>
   </table>
 
 
   <div ng-if="user.req_comms">
-    <h3>Requests to join community</h3>
+    <h3>Recent Requests</h3>
       <table class="table">
         <thead>
           <th>Community Name</th>
@@ -37,7 +33,7 @@
         <tbody>
           <tr ng-repeat="req in user.req_comms">
             <td ng-bind="req.comm_name"></td>
-            <td><button ng-click="remove_req(req._id)">Cancel Request</button></td>
+            <td><button class="btn btn-danger" ng-click="remove_req(req._id)">Cancel Request</button></td>
 
           </tr>
 

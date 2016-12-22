@@ -197,10 +197,14 @@ function Controller(){
 			if(err){
 				console.log("error getting event info: " + err);
 			}
+			console.log(thisevent);
+			console.log(req.body);
 			User.findOne({_id: req.body.user}, function(err, thisuser){
 				if(err){
 					console.log("error getting event info: " + err);
 				}	
+
+				console.log(thisuser);
 				thisevent.participants.push(thisuser);
 				thisevent.save();
 				res.redirect('/event/' + req.body.thisevent);

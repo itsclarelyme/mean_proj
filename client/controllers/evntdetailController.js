@@ -9,10 +9,10 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 	
 	var get_login_session = function(user_id) {
       	usersFactory.login_index(user_id, function (data) {
-      	$scope.login_user = data;
+      	$scope.user = data;
         
       	console.log("login - back to dash controller:");
-      	console.log("login user object " + $scope.login_user);
+      	console.log("login user object " + $scope.user);
 
     	}); 
   	}
@@ -57,7 +57,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', 'ev
 
 	//find comms that user is admin
 	$scope.isAdmin = function(admin){
-		//console.log($scope.user._id == admin._id);
+		console.log(admin);
 		if($scope.user._id == admin._id){
 			return true;
 		}

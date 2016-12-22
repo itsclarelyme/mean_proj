@@ -62,7 +62,7 @@ app.controller('commController', ['$scope', 'commFactory', 'usersFactory', funct
 
 	$scope.isMember = function(community){
 		for(var i = 0; i < community.member.length; i++){
-			if(community.member[i] == $scope.user._id){
+			if(community.member[i]._id == $scope.user._id){
 				return true;
 			} 
 		} 
@@ -71,7 +71,7 @@ app.controller('commController', ['$scope', 'commFactory', 'usersFactory', funct
 
 	$scope.isRequest = function(community){
 		for(var i = 0; i < community.requester.length; i++){
-			if(community.requester[i] == $scope.user._id){
+			if(community.requester[i]._id == $scope.user._id){
 				return true;
 			} 
 		} 

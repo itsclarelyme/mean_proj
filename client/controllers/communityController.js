@@ -5,6 +5,7 @@ app.controller('communityController', ['$scope','$routeParams','$location', 'com
 	$scope.events = [];
 	$scope.comm = {};
 
+
 	
 	var get_login_session = function(user_id) {
       	usersFactory.login_index(user_id, function (data) {
@@ -41,7 +42,7 @@ app.controller('communityController', ['$scope','$routeParams','$location', 'com
 	var events_index = function(){
 		eventFactory.get_commevents($routeParams, function(returndate){
 			$scope.events = returndate.data;
-			console.log($scope.events);
+
 		})
 	}
 	events_index();
@@ -50,8 +51,20 @@ app.controller('communityController', ['$scope','$routeParams','$location', 'com
 	$scope.isMember = function(comm){
 		//console.log(comm);
 		for(var i = 0; i < comm.length; i++){
-			//console.log(i + " iter: " + comm[i]._id == $scope.user._id);
+			console.log(i + " iter: " + comm[i]._id == $scope.user._id);
 			if(comm[i]._id == $scope.user._id){
+				return true;
+			} 
+		} 
+		return false;
+	}
+
+	//check if user is a requester
+	$scope.isReq = function(reqt){
+		//console.log(comm);
+		for(var i = 0; i < reqt.length; i++){
+			console.log(i + " iter: " + reqt[i]._id == $scope.user._id);
+			if(reqt[i]._id == $scope.user._id){
 				return true;
 			} 
 		} 
@@ -60,7 +73,9 @@ app.controller('communityController', ['$scope','$routeParams','$location', 'com
 
 	//find comms that user is admin
 	$scope.isAdmin = function(admin){
-		//console.log($scope.user._id == admin._id);
+		console.log($scope.user._id);
+		console.log($scope.comm.admin._id);
+		console.log($scope.user._id == admin._id);
 		if($scope.user._id == admin._id){
 			return true;
 		}
