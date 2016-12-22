@@ -157,7 +157,7 @@ body{
 #top-nav{
 	margin: 0px auto;
 	height: auto;
-	width: 440px;
+	width: 500px;
 	font-family: 'Lato', verdana, arial, sans-serif;
 	text-align: center;
 	margin-bottom: 50px;
@@ -169,7 +169,8 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background:url('../images/background.png');
+    border-radius: 6px;
 }
 
 /* Float the list items side by side */
@@ -187,7 +188,10 @@ body{
 }
 
 /* Change background color of links on hover */
-ul.custom-nav li a:hover {background-color: #555;}
+ul.custom-nav li a:hover {
+	background-color: #DF9288;
+	border-radius: 6px;
+ }
 
 /* Hide the list item that contains the link that should open and close the topnav on small screens */
 ul.custom-nav li.icon {display: none;}
@@ -202,7 +206,7 @@ ul.custom-nav li.icon {display: none;}
 }
 
 #user-text{
-	color: blue;
+	color: #08729e;
 	font-weight: bold;
 }
 
