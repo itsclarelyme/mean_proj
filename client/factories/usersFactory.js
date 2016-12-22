@@ -1,12 +1,13 @@
 console.log("Users Factory");
-app.factory('usersFactory', ['$http', function($http){
+app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
 	//initializing variable
   var login_user = {};
   var users = [];
+  
 
   function UsersFactory(){
 
-      var _this = this;
+    var _this = this;
      this.index = function(callback){
       $http.get('/users').then(function(returned_data){
         console.log(returned_data);
@@ -19,10 +20,17 @@ app.factory('usersFactory', ['$http', function($http){
 
     };
 
-    this.login_index = function(callback){
+    this.login_index = function(user_id, callback){
+        console.log("login_index factory user id: " + user_id);
+        $http.get('/users/'+user_id).then(function(returned_data){
+        console.log("factory - login_index: " + returned_data.data._intro.first_name);
         if (typeof(callback) == 'function'){
+          login_user = returned_data.data;
+          console.log("assign login user ok");
           callback(login_user);
         }
+        
+      });
 
     };
 
@@ -35,6 +43,7 @@ app.factory('usersFactory', ['$http', function($http){
         console.log(returned_data.data);
         if (typeof(callback) == 'function'){
           login_user = returned_data.data;
+
           callback(returned_data.data);
         }
 
@@ -49,11 +58,34 @@ app.factory('usersFactory', ['$http', function($http){
         console.log(returned_data.data);
         if (typeof(callback) == 'function'){
           login_user = returned_data.data;
+          if(!returned_data.data.errors){
+            console.log("no error logging in..adding session");
+            setCookieData(login_user._id);
+          }
           callback(returned_data.data);
         }
 
       });
     };
+
+    this.add_profile = function(profile, callback){
+      console.log("inside factory adding profile intro...")
+      console.log(profile);
+      $http.post('/profile', profile).then(function(returned_data){
+        console.log("back to users factory..");
+        console.log(returned_data.data);
+        if (typeof(callback) == 'function'){
+          login_user = returned_data.data;
+          if(!returned_data.data.errors){
+            console.log("no error creating user..adding session");
+            setCookieData(login_user._user);
+          }
+          callback(returned_data.data);
+        }
+
+      });
+    };
+
 
     this.show = function(user_id, callback){
         $http.get('/users/'+user_id).then(function(returned_data){
@@ -64,6 +96,23 @@ app.factory('usersFactory', ['$http', function($http){
 
         });
       };
+
+    var setCookieData = function(id){
+        console.log("inside set cookie data");
+        var expired = new Date();
+        expired.setDate(expired.getDate() + 1);
+        $cookies.put("login_user", id, {expires : expired });
+    }
+
+    this.getCookieData = function(){
+      return $cookies.get("login_user");
+
+    }
+
+    this.clearCookieData = function(){
+      login_user = {};
+      $cookies.remove("login_user");
+    }
    
   }
 
