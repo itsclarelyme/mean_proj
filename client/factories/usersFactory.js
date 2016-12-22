@@ -147,7 +147,6 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       login_user = {};
       $cookies.remove("login_user");
     }
-     
 
 
     this.remove_req = function(doc, callback){
@@ -160,7 +159,9 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       })
     }
 
+
   }
+
 
   return new UsersFactory();
 }]);
