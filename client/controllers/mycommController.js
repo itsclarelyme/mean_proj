@@ -1,4 +1,4 @@
-app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', function($scope, commFactory, usersFactory){
+app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$location', function($scope, commFactory, usersFactory, $location){
 
 	$scope.user = {};
 
@@ -31,7 +31,7 @@ app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', fun
     	get_login_session(usersFactory.getCookieData());
   	}
   	else{
-  		$location.url('/');
+  		$location.url('/login');
   	}
 
 

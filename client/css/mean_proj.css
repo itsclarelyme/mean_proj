@@ -38,6 +38,7 @@
 	font-weight: bold;
 	font-size: 14pt;
 	color: white;
+	text-align: center;
 }
 
 #logout-text{
@@ -88,8 +89,9 @@
 	font-family: 'Lato', verdana, arial, sans-serif;
 	font-size: 20pt;
 	text-decoration: underline;
-	margin-left: 60px;
+	margin-left: 70px;
 	color: white;
+
 
 }
 

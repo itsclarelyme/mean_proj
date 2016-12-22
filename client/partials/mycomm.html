@@ -2,9 +2,10 @@
 <h1 class="headline-text">My Communities</h1>
 
 
+  <p id="login-text" ng-if="user._intro.first_name && user._intro.last_name">Welcome <span id="user-text">{{ user._intro.first_name }} {{ user._intro.last_name }}</span>!</p>
+
 <div class="community">
 
-  <h3>My Communities</h3>
   <table class="table">
     <thead>
       <tr>

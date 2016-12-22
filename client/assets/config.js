@@ -3,14 +3,18 @@ var app = angular.module('app', ['ngRoute', 'ngMessages', 'ngCookies', 'ngValid'
 app.config(function($routeProvider){
 	$routeProvider
 	.when('/', {
-		templateUrl: "partials/main.html", 
-		controller: "mainController"
+		templateUrl: "partials/community.html", 
+		controller: "commController"
 	})
 	.when('/register', {
 		templateUrl: "partials/registration.html", 
 		controller: "LoginController"
 	})
 	.when('/login', {
+		templateUrl: "partials/login.html", 
+		controller: "LoginController"
+	})
+	.when('/login:id', {
 		templateUrl: "partials/login.html", 
 		controller: "LoginController"
 	})

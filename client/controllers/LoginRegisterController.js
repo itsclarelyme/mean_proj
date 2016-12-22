@@ -1,9 +1,11 @@
-app.controller('LoginController', ['$scope', 'usersFactory', '$location', function($scope, usersFactory, $location){
+app.controller('LoginController', ['$scope', 'usersFactory', '$location','$routeParams', function($scope, usersFactory, $location, $routeParams){
 	//scope variable
 	$scope.errors = {};
 	$scope.user = {};
 	$scope.registration = {};
 	$scope.userLogin = {};
+
+	$scope.logout = $routeParams.id;
 
 	$scope.register = function(){
         usersFactory.register($scope.registration, function(data){
@@ -30,10 +32,12 @@ app.controller('LoginController', ['$scope', 'usersFactory', '$location', functi
 	          console.log("login data:");
 	          console.log(data);
               $scope.userLogin = {};
-              $location.url('/');
+              $location.url('/mycomm');
 	        }
       	})
   	};
+
+
 
 }]);
 
@@ -55,7 +59,7 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 	        	$scope.user = data.data;
 	        	console.log(data);
 	        	$scope.profile = {};
-	        	$location.url('/');
+	        	$location.url('/mycomm');
 	      	}
     	})
   	};
@@ -67,7 +71,7 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 app.controller('LogoutController', ['$scope', 'usersFactory', '$location', function($scope, usersFactory, $location){
 	//scope variable
 	$scope.login_user = {};
-	$scope.logout = false;
+	$scope.logout = "false";
 	var get_login_session = function(user_id) {
       usersFactory.login_index(user_id, function (data) {
       $scope.login_user = data;
@@ -83,9 +87,14 @@ app.controller('LogoutController', ['$scope', 'usersFactory', '$location', funct
     // calls to check if session exists 
     get_login_session(usersFactory.getCookieData());
     usersFactory.clearCookieData();
-    $scope.logout = true;
+    $scope.logout = "true";
+    console.log("TRYING TO LOGOUT...");
+    $location.url('/comms/');
+
   }
+
 	console.log("logout controller");
+	
 	
 
 }]);
