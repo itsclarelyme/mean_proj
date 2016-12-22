@@ -21,7 +21,7 @@
       <tr ng-repeat='community in user.comms'>
         <td><a href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
-        <td><a ng-if="!isAdmin(community)" href="/comm/{{community._id}}"><button>Enter Community</button></a><a ng-if="isAdmin(community)" href="/comm/{{community._id}}"><button>Manage Community</button></a></td>
+        <td><a ng-if="!isAdmin(community)" href="/#!/comm/{{community._id}}"><button>Enter Community</button></a><a ng-if="isAdmin(community)" href="/#!/comm/{{community._id}}"><button>Manage Community</button></a></td>
       </tr>
     </tbody>
   </table>

@@ -58,7 +58,7 @@ app.factory('usersFactory', ['$http', function($http){
     this.get_info = function(user, callback){
       $http.get('/user/' + user._id).then(function(returned_data){
         console.log("factory get all user info");
-        console.log(returned_data);
+        //console.log(returned_data);
         user = returned_data.data;
         if(typeof(callback) == 'function'){
           callback(user);

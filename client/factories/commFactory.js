@@ -17,7 +17,7 @@ app.factory('commFactory', ['$http', function($http){
 
 		this.retrieve_comm = function(callback){
 			$http.get('/comm').then(function(data){
-				console.log(data);
+				//console.log(data);
 				communities = data.data;
 				if (typeof(callback) == 'function') {
 					callback(data);
@@ -27,7 +27,7 @@ app.factory('commFactory', ['$http', function($http){
 
 		this.create_comm = function(newcomm, callback){
 			$http.post('/comm/new', newcomm).then(function(data){
-				console.log(data);
+				//console.log(data);
 				communities = data.data;
 				if (typeof(callback) == 'function') {
 					callback(data);
@@ -37,8 +37,18 @@ app.factory('commFactory', ['$http', function($http){
 
 		this.join_comm = function(request, callback){
 			$http.post('/comm/request', request).then(function(data){
-				console.log(data);
+				//console.log(data);
 				communities = data.data;
+				if (typeof(callback) == 'function') {
+					callback(data);
+				};
+			})
+		}
+
+		this.get_comminfo = function(info, callback){
+			$http.get('/comm/' + info.id).then(function(data){
+				//console.log(data);
+				community = data.data;
 				if (typeof(callback) == 'function') {
 					callback(data);
 				};

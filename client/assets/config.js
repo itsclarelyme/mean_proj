@@ -24,14 +24,22 @@ app.config(function($routeProvider){
 	})
 	.when('/comm/:id', {
 		templateUrl: "partials/comm.html", 
-		controller: "commController"
+		controller: "communityController"
 	})
 	.when('/mycomm', {
 		templateUrl: "partials/mycomm.html", 
 		controller: "mycommController"
 	})
+	.when('/newpost/:id', {
+		templateUrl: "partials/newevent.html", 
+		controller: "eventController"
+	})
+	.when('/event/:id', {
+		templateUrl: "partials/event_detail.html", 
+		controller: "evntdetailController"
+	})
 	.otherwise({
-		redirectTo: '/'
+		redirectTo: '/comms'
 	})
 })
 

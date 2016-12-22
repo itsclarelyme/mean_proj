@@ -15,9 +15,14 @@ module.exports = function(app) {
   app.post('/login', users.login);
   app.post('/register', users.register);
 
-  app.get('/comm', function(req, res){
+  	app.get('/comm', function(req, res){
 		console.log('retrieve all community');
 		controller.comm_get(req, res);
+	})
+
+	app.get('/comm/:id', function(req, res){
+		console.log('retrieve all community');
+		controller.comm_getinfo(req, res);
 	})
 
 	app.post('/comm/new', function(req, res){
@@ -49,6 +54,23 @@ module.exports = function(app) {
 		console.log("removing the requesting comm");
 		controller.remove_comm_req(req, res);
 	})
+
+	app.post('/event/new', function(req, res){
+		console.log("removing the requesting comm");
+		controller.add_event(req, res);
+	})
+
+	app.get('/comm/events/:commid', function(req, res){
+		console.log("getting all events from comm");
+		controller.get_commevent(req, res);
+	})
+
+	app.get('/event/:id', function(req, res){
+		console.log("getting all events from comm");
+		controller.get_event(req, res);
+	})
+
+
 
 }
 

@@ -20,12 +20,36 @@ function Controller(){
 
 	this.comm_get = function(req, res){
 		console.log("controller get all comm method");
-		Community.find({}).populate('comms').populate('req_comms').exec(function(err, data){
+		Community.find({}).populate('requester').populate('member').exec(function(err, data){
 			if(err){
 				console.log("error in new comm: " + err);
 			}
-			console.log(data);
+			//console.log(data);
 			res.json(data);
+		})
+	}
+
+	this.comm_getinfo = function(req, res){
+		console.log("controller get this specific comm method");
+		//console.log(req.params);
+		Community.findOne({_id: req.params.id}).populate('admin').populate('requester').populate('member').populate('events').exec(function(err, data){
+			if(err){
+				console.log("error in new comm: " + err);
+			}
+			//console.log(data);
+			res.json(data);
+		})
+	}
+
+	this.get_commevent = function(req, res){
+		console.log("controller getting all the events in this comm");
+		//console.log(req.params);
+		Event.find({_comm: req.params.commid}).populate('poster').populate('participants').exec(function(err, events){
+			if(err){
+				console.log("error finding all events in the comm: " + err);
+			}
+			console.log(events);
+			res.json(events);
 		})
 	}
 
@@ -111,7 +135,7 @@ function Controller(){
 			if(err){
 				console.log("Error in controller: ", + err);
 			}
-			console.log(data);
+			//console.log(data);
 			res.json(data);
 		})
 	}
@@ -122,7 +146,7 @@ function Controller(){
 			if(err){
 				console.log("Error in controller: ", + err);
 			}
-			console.log(user);
+			//console.log(user);
 			//update community request list
 			Community.update({_id: req.body.comm}, {$pull: {req_comms: req.body.user}}).exec(function(err, comm){
 				if(err){
@@ -132,6 +156,36 @@ function Controller(){
 			});
 		});
 
+	}
+
+	this.add_event = function(req, res){
+		console.log("Controller create new event");
+		var newevent = new Event(req.body);
+		newevent.save(function(err, thisevent){
+			if(err){
+				console.log("error creating new event: " + err);
+			}
+			//console.log(thisevent);
+			Community.findOne({_id: req.body._comm._id}, function(err, comm){
+				if(err){
+					console.log("error adding new event to comm: " + err);
+				}
+				comm.events.push(thisevent);
+				comm.save();
+				res.json();
+			})
+		})
+	}
+
+	this.get_event = function(req, res){
+		console.log("controller get event detail");
+		Event.findOne({_id: req.params.id}).populate('poster').populate('_comm').populate('participants').exec(function(err, thisevent){
+			if(err){
+				console.log("error getting event info: " + err);
+			}
+			console.log(thisevent);
+			res.json(thisevent);
+		})
 	}
 
 
