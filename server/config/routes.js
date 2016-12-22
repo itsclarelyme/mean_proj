@@ -11,9 +11,13 @@ var users = require('../controllers/users.js');
 
 module.exports = function(app) {
 
+  //users
   app.get('/users', users.index);
+  app.get('/users/:id', users.index_login);
   app.post('/login', users.login);
   app.post('/register', users.register);
+  app.post('/profile', users.add_profile);
+
 
   	app.get('/comm', function(req, res){
 		console.log('retrieve all community');
@@ -70,10 +74,12 @@ module.exports = function(app) {
 		controller.get_event(req, res);
 	})
 
+
 	app.post('/event/join', function(req, res){
 		console.log("joinning this event");
 		controller.join_event(req, res);
 	})
+
 
 
 

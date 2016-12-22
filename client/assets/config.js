@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngCookies']);
+var app = angular.module('app', ['ngRoute', 'ngMessages', 'ngCookies', 'ngValid']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -14,7 +14,11 @@ app.config(function($routeProvider){
 		templateUrl: "partials/login.html", 
 		controller: "LoginController"
 	})
-	.when('/introduction', {
+	.when('/logout', {
+		templateUrl: "partials/login.html", 
+		controller: "LogoutController"
+	})
+	.when('/introduction/:id', {
 		templateUrl: "partials/introduction.html", 
 		controller: "IntroController"
 	})
@@ -43,6 +47,3 @@ app.config(function($routeProvider){
 	})
 })
 
-// app.config(function (ngIntlTelInputProvider) {
-//         ngIntlTelInputProvider.set({defaultCountry: 'us'});
-// })

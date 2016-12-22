@@ -2,11 +2,13 @@
 <html lang = 'en'>
 
 <head>
-	<title>Sample Mean File</title>
+	<title>I Lend You</title>
 	<meta charset="utf-8">
 	<script src="angular/angular.min.js"></script>
     <script src="angular-route/angular-route.min.js"></script>
     <script src = 'angular-cookies/angular-cookies.js'></script>
+    <script src="angular-messages/angular-messages.min.js"></script>
+    <script src="ng-valid/dist/ng-valid.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./css/mean_proj.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -20,8 +22,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<script src="./assets/config.js"></script>
+	<script src="./assets/custom_dirs_filters.js"></script>
 	<script src="./factories/usersFactory.js"></script>
-	<script src="./factories/introFactory.js"></script>
 	<script src="./factories/interFactory.js"></script>
 	<script src="./factories/eventFactory.js"></script>
 	<script src="./factories/commFactory.js"></script>
@@ -38,10 +40,12 @@
 
 
 <body ng-app="app">
+    <div id="top-section">
+      <img id="top-banner" src="./images/banner.png">
+    </div>
 	<div id="top-nav">
-		<h3 id="header-text">Welcome to this app!</h3>
 
-		<a class="div-header" href="#!/comms">Communities</a> | <a class="div-header" href="#!/mycomm">Dashboard</a> |  <a class="div-header" href="#!/login">Login</a> |  <a class="div-header" href="#!/register">Register</a> | <a class="div-header" href="#!/introduction">Logout</a> 
+		<a class="div-header" href="#!/comms">Communities</a> | <a class="div-header" href="#!/mycomm">Dashboard</a> |  <a class="div-header" href="#!/login">Login</a> |  <a class="div-header" href="#!/register">Register</a> | <a class="div-header" href="#!/logout">Logout</a> 
 
 	</div>
 
