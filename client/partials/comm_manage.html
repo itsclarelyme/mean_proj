@@ -1,0 +1,61 @@
+<div class="community">
+	<h3>Welcome to {{comm.comm_name}}!</h3>
+	<div>
+		<table class="table">
+			<thead>
+				<th>User Name</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="req in comm.requester">
+					<td>{{req._intro.first_name}} {{req._intro.last_name}}</td>
+					<td>
+						<span class="btn btn-success" ng-click="approveReq(req, true)">Approve</span>
+						<span class="btn btn-danger ml-10" ng-click="rejectReq(req, false)">Reject</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<!--
+	<div ng-if="!isMember(comm.member)">
+		<h3>Not a member? Send a Request!</h3>
+		<button ng-if="!isReq(comm.requester)">Request to join community</button>
+		<button ng-if="isReq(comm.requester)" disabled>Request Pending</button>
+	</div>
+
+	<div ng-if="isMember(comm.member) || isAdmin(comm.admin)">
+		&lt;!&ndash; <h3>I am a member!</h3> &ndash;&gt;
+		<div ng-if="isAdmin(comm.admin)">
+			<div ng-if="comm.requester && comm.requester.length">
+				<h5>Requests to join the community:</h5>
+				<p ng-repeat="req in comm.requester">
+					{{req._intro.first_name}} {{req._intro.last_name}} requested to you.
+					<span class="btn btn-success" ng-click="approveReq(req)">Approve</span>
+					<span class="btn btn-danger ml-10" ng-click="rejectReq(req)">Reject</span>
+				</p>
+			</div>
+		</div>
+
+		<a href="/#!/newpost/{{comm._id}}"><button class="btn btn-danger">Create a new post</button></a>
+
+		<h3>Show recent posts</h3>
+		<table class="table">
+        <thead>
+          <th>Title</th>
+          <th>Posted By</th>
+          <th>Post date</th>
+        </thead>
+        &lt;!&ndash; <p ng-if="! comm.events">There are no posts in this community yet.. Start a convo!</p> &ndash;&gt;
+        <tbody>
+          	<tr ng-repeat="event in events">
+            	<td><a href="/#!/event/{{event._id}}">{{event.title}}</a></td>
+            	<td ng-bind="event.poster.name"></td>
+            	<td>{{event.createdAt | date: "MM/dd/yyyy"}}</td>
+
+          	</tr>
+        </tbody>
+      </table>
+	</div>
+-->
+</div>

@@ -1,46 +1,91 @@
 <div class="community">
 
-
-
 	<h3 class="center-text" ng-bind="thisevent.title"></h3>
-	<h4 ng-bind="thisevent.description"></h4>
-	<p>Posted by <span class="action-text">{{thisevent.poster.name}}</span> on {{thisevent.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</p>
-
-
-	<div ng-if="!isPart() && !isPoster()">
-		<button class='btn btn-danger' ng-click="join_part()">Participate in this post</button>
+	<p class="ft-18">
+		{{thisevent.description}}
+	</p>
+	<p>
+		Posted by <span class="action-text ft-14">{{thisevent.poster._intro.first_name}} {{thisevent.poster._intro.last_name}}</span> on {{thisevent.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}
+	</p>
+	<div ng-if="thisevent.poster._id == user._id && !thisevent.status">
+		<button class="btn btn-danger" ng-click="open_complete_modal()">Issue Resolved</button>
 	</div>
-
-	<div ng-if="isPoster() || isPart()">
-
-		<div ng-if="isPoster()">
-			<button class='btn btn-danger'>Issue Resolved!</button><br>
+	<div class="msg-panel">
+		<div ng-repeat="msg in thisevent.messages">
+			<div ng-class="{'mt-10': !$first}" style="font-weight: bold">
+				<img ng-src="{{msg._author._intro.photo}}" style="width: 30px;">
+				<a href ng-click="get_review(msg._author)"><span class="ml-10">{{msg._author._intro.first_name}} {{msg._author._intro.last_name}} :</span></a>
+				<span class="ml-10">{{msg.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</span>
+			</div>
+			<p style="padding-left: 60px">{{msg.msg}}</p>
 		</div>
-
-		<div>
-		<hr>
-			<p ng-repeat="msg in messages">{{msg.msg}} -- {{msg.createdAt | date: 'MMMM, dd, yyyy - h:ma'}}</p>
-
-
-		</div>
-
-		<div ng-if="!thisevent.status">
-			<textarea ng-model="message.msg" rows="2" cols="65" placeholder="Leave a comment"></textarea>
-			<input class='btn btn-danger' type="submit" ng-click="add_msg()" value="Post">
-
-		</div>
-
-		<a href="/#!/comm/{{thisevent._comm._id}}"><button class='btn btn-danger'>Return to Community</button></a>
-
-
 	</div>
+	<div ng-if="isMember() && !thisevent.status" class="mt-10">
+		<textarea ng-model="message.msg" rows="2" cols="65" placeholder="Leave a comment" style="color: black"></textarea>
+		<div><a class="btn btn-primary" ng-click="add_msg()">Post</a></div>
+	</div>
+	<div class="mt-10 ft-18">
+		<a class="color-white" href="/#!/comm/join/{{thisevent._comm._id}}">Return to Community</a>
+	</div>
+</div>
 
+<div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="finishModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">{{'Complete ' + thisevent.title }}</h4>
+			</div>
+			<div class="modal-body">
+				Review and ratings
+				<div ng-repeat="reviewer in reviewers" class="ml-10">
+					<strong>{{reviewer.name}}</strong>
+					<div class="row">
+						<div class="col-xs-2">Review :</div>
+						<div class="col-xs-10">
+							<textarea class="form-control" ng-model="reviewer.review" rows="2"></textarea>
+						</div>
+					</div>
+					<div class="mt-5 row">
+						<div class="col-xs-2">&nbsp;</div>
+						<div class="col-xs-10">
+							<input-stars max="6" ng-model="reviewer.rating"></input-stars>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="submit_complete()">Complete</button>
+				<button class="btn btn-danger ml-10" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-
-
-
-
-
-
-
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Reviews</h4>
+			</div>
+			<div class="modal-body">
+				Review and ratings  <input-stars class="lg" max="6" ng-model="reviewData.rating" ng-attr-readonly="true"></input-stars>
+				<div ng-repeat="review in reviewData.reviewArr" class="ml-10">
+					<div>
+						<span style="margin-right: 10px"><strong>{{review.user_name}}</strong></span> <input-stars max="6" ng-model="review.rating" ng-attr-readonly="true"></input-stars>
+					</div>
+					<div class="row">
+						<div class="col-xs-2">Review :</div>
+						<div class="col-xs-10">
+							<p>{{review.review}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger ml-10" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>

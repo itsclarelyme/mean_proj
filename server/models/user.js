@@ -10,22 +10,30 @@ var userSchema = new mongoose.Schema ({
 	comms: [{type: Schema.Types.ObjectId, ref: "Community"}],
 	req_comms: [{type: Schema.Types.ObjectId, ref: "Community"}],
 	_intro: {type: Schema.Types.ObjectId, ref: "Intro"},
-	ranking: {type: Number}},
-	{timestamps: true});
+	role: {type: String, default: 'user'},
+	ranking: {type: Number},
+	salt: {type: String}},
+{timestamps: true});
 
 // bcrypt
 userSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+	if (this.salt && password)
+    	return bcrypt.hashSync(password, this.salt);
+	else
+		return password;
 };
 
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+    return this.generateHash(password) === this.password;
 };
 
 // check password match
 userSchema.pre('save', function(done) {
-    this.password = this.generateHash(this.password);
+	if (this.password && this.isModified('password')){
+		this.salt = bcrypt.genSaltSync(8);
+		this.password = this.generateHash(this.password);
+	}
     done();
 });
 

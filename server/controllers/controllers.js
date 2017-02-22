@@ -5,6 +5,7 @@ var Event = mongoose.model('Event');
 var Intro = mongoose.model('Intro');
 var Community = mongoose.model('Community');
 var Message = mongoose.model('Message');
+var Review = mongoose.model('Review');
 
 function Controller(){
 	// this.comm_get = function(req, res){
@@ -20,26 +21,89 @@ function Controller(){
 
 	this.comm_get = function(req, res){
 		console.log("controller get all comm method");
-		Community.find({}).populate('requester').populate('member').exec(function(err, data){
+		var query = req.query || {};
+		Community.find(query).deepPopulate('admin._intro').populate('requester').populate('member').exec(function(err, data){
 			if(err){
 				console.log("error in new comm: " + err);
 			}
 			//console.log(data);
 			res.json(data);
 		})
-	}
+	};
 
 	this.comm_getinfo = function(req, res){
 		console.log("controller get this specific comm method");
 		//console.log(req.params);
-		Community.findOne({_id: req.params.id}).populate('admin').populate('requester').populate('member').populate('events').exec(function(err, data){
+		Community.findOne({_id: req.params.id}).populate('admin').deepPopulate(['requester._intro', 'member._intro', 'events.poster._intro']).exec(function(err, data){
 			if(err){
-				console.log("error in new comm: " + err);
+				return res.status(422).send({message: 'fail get info of comm'});
 			}
-			//console.log(data);
+/*
+			User.populate(data, {path: 'member._intro', select: '_id', model: Intro}, function(err, data){
+				console.log(data);
+				res.json(data);
+			})
+*/
 			res.json(data);
 		})
-	}
+	};
+
+	this.comm_update = function(req, res){
+		var id = req.params.id;
+		if (!id)
+			return res.status(422).send({message: 'invalid request'});
+		Community.update({_id: id}, req.body, {multi: false}, function(err){
+			if (err)
+				res.status(422).send({message: 'fail update'});
+			else
+				res.send({message: 'update successfully'});
+		})
+	};
+
+	this.comm_approve_req = function(req, res){
+		var id = req.body.id,
+			userId = req.body.userId,
+			approved = req.body.approved;
+
+		if (!id)
+			return res.status(422).send({message: 'invalid request'});
+		Community.findOne({_id: id}, function(err, comm){
+			if (err || !comm)
+				return res.status(422).send({message: 'can not find community'});
+
+			User.findOne({_id: userId}, function(err, userData){
+				if (err || !userData)
+					return res.status(422).send({message: 'can not find user'});
+
+				var index = comm.requester.indexOf(userId);
+				console.log('------ index :' + index);
+				if (index > -1){
+					if (approved){
+						comm.member.push(userData._id);
+						userData.comms.push(comm._id);
+					}
+					comm.requester.splice(index, 1);
+					userData.req_comms.splice(userData.req_comms.indexOf(comm._id), 1);
+					comm.save();
+					userData.save();
+				}
+				res.send({message: 'updated successfully.'});
+			})
+		})
+	};
+
+	this.comm_delete = function(req, res){
+		var id = req.params.id;
+		if (!id)
+			return res.status(422).send({message: 'invalid request'});
+		Community.remove({_id: id}, function(err){
+			if (err)
+				res.status(422).send({message: 'fail remove'});
+			else
+				res.send({message: 'removed successfully'});
+		})
+	};
+
 
 	this.get_commevent = function(req, res){
 		console.log("controller getting all the events in this comm");
@@ -51,7 +115,7 @@ function Controller(){
 			console.log(events);
 			res.json(events);
 		})
-	}
+	};
 
 	this.comm_new = function(req, res){
 		console.log("controller add comm");
@@ -68,23 +132,27 @@ function Controller(){
 			newcomm.save(function(err){
 				if(err){
 					console.log("error in new comm: " + err);
+					return res.status(422).send({message: 'fail create new comm.'});
 				}
-				res.redirect('/comm');
+				res.send(newcomm);
 			})
-
 		})
-	}
+	};
 
 
 	this.comm_req = function(req, res){
 		console.log("controller request to join comm");
+		if (!req.body.user)
+			return res.redirect('/login');
 		User.findOne({_id: req.body.user}, function(err, user){
-			if(err){
+			if(err || !user){
 				console.log("find requesting user: " + err);
+				return res.redirect('/login');
 			}
 			Community.findOne({_id: req.body.comm}, function(err, comm){
 				if(err){
 					console.log("find requesting comm: " + err);
+					return res.status(422).send(err);
 				}
 				user.req_comms.push(comm);
 				user.save(function(err){
@@ -101,7 +169,7 @@ function Controller(){
 				})
 			})
 		})
-	}
+	};
 
 
 	this.new_user = function(req, res){
@@ -119,17 +187,17 @@ function Controller(){
 				res.json(data);
 			})
 		})
-	}
+	};
 
 	this.get_user = function(req, res){
 		console.log("controller get all users");
-		User.find({}, function(err, data){
+		User.find({}).populate('_intro').exec(function(err, data){
 			if(err){
 				console.log("Error in controller: ", + err);
 			}
 			res.json(data);
 		})
-	}
+	};
 
 	this.get_userinfo = function(req, res){
 		console.log("controller get all user info");
@@ -140,7 +208,7 @@ function Controller(){
 			//console.log(data);
 			res.json(data);
 		})
-	}
+	};
 
 	this.remove_comm_req = function(req, res){
 		console.log("controller remove request");
@@ -157,8 +225,7 @@ function Controller(){
 				res.json(user);
 			});
 		});
-
-	}
+	};
 
 	this.add_event = function(req, res){
 		console.log("Controller create new event");
@@ -177,18 +244,18 @@ function Controller(){
 				res.json();
 			})
 		})
-	}
+	};
 
 	this.get_event = function(req, res){
 		console.log("controller get event detail");
-		Event.findOne({_id: req.params.id}).populate('poster').populate('_comm').populate('participants').exec(function(err, thisevent){
+		Event.findOne({_id: req.params.id}).deepPopulate(['poster._intro', 'messages._author._intro']).populate('_comm').exec(function(err, thisevent){
 			if(err){
 				console.log("error getting event info: " + err);
 			}
 			console.log(thisevent);
 			res.json(thisevent);
 		})
-	}
+	};
 
 
 	this.join_event = function(req, res){
@@ -210,7 +277,7 @@ function Controller(){
 				res.redirect('/event/' + req.body.thisevent);
 			})
 		})
-	}
+	};
 
 	this.get_msg = function(req, res){
 		//console.log("controller get msg for this event");
@@ -223,28 +290,67 @@ function Controller(){
 			//console.log(data);
 			res.json(data);
 		})
-	}
+	};
 
 	this.add_msg = function(req, res){
-		//console.log("adding a new msg");
-		//console.log(req.body);
 		var newmsg = new Message(req.body);
-		newmsg.save(function(err, msg){
-			if(err){
-				console.log("Error in controller: " + err);
-			}
-			//console.log(msg);
-			res.redirect('/msg/' + msg._event);
+		if (!newmsg._event || !newmsg._author)
+			return res.status(422).send({message: 'invalid request data'});
+		Event.findOne({_id: newmsg._event}, function(err, event){
+			if (err || !event)
+				return res.status(422).send({message: 'can not find event.'});
+			if (event.status)
+				return res.status(422).send({message: 'sorry, this event was completed already.'});
+
+			newmsg.save(function(err, msg){
+				if(err)
+					return res.status(422).send({message: 'fail reply.'});
+
+				event.messages.push(newmsg._id);
+				event.save(function(err){
+					if(err)
+						return res.status(422).send({message: 'fail reply.'});
+
+					res.send(newmsg);
+				});
+			})
+		})
+	};
+
+	this.complete_event = function(req, res){
+		var eventId = req.body.eventId,
+			posterId = req.body.posterId,
+			reviews = req.body.reviews || [];
+		if (!eventId || !posterId)
+			return res.status(422).send({message: 'invalid request'});
+		Event.findOne({_id: eventId}, function(err, eventObj){
+			if (err || !eventObj)
+				return res.status(422).send({message: 'invalid post data'});
+			eventObj.status = true;
+			eventObj.save(function(err){
+				var reviewArr = [];
+				for (var i=0; i<reviews.length; i++){
+					reviewArr.push({
+						_event: eventObj._id,
+						_poster: posterId,
+						_user: reviews[i]._id,
+						review: reviews[i].review,
+						rating: reviews[i].rating
+					})
+				}
+				Review.create(reviewArr, function(err, num){
+					res.send({message: 'completed successful'});
+				})
+			})
+		})
+	};
+
+	this.getReviews = function(req, res){
+		var id = req.params.id;
+		Review.find({_user: id}).deepPopulate(['_poster._intro']).exec(function(err, result){
+			res.send(result);
 		})
 	}
-
-
-
-
-
-
-
-
 
 }
 

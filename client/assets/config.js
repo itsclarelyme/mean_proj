@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngMessages', 'ngCookies', 'ngValid']);
+var app = angular.module('app', ['ngRoute', 'ngMessages', 'ngCookies', 'ngValid', 'ngFileUpload', 'ngAnimate', 'toaster', 'angular-input-stars', 'ngMap']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -26,13 +26,21 @@ app.config(function($routeProvider){
 		templateUrl: "partials/community.html", 
 		controller: "commController"
 	})
-	.when('/comm/:id', {
-		templateUrl: "partials/comm.html", 
-		controller: "communityController"
+	.when('/comm/manage/:id', {
+		templateUrl: "partials/comm_manage.html",
+		controller: "commManageController"
+	})
+	.when('/comm/join/:id', {
+		templateUrl: "partials/comm_join.html",
+		controller: "commJoinController"
 	})
 	.when('/mycomm', {
 		templateUrl: "partials/mycomm.html", 
 		controller: "mycommController"
+	})
+	.when('/dashboard', {
+		templateUrl: 'partials/dashboard.html',
+		controller: "DashboardController"
 	})
 	.when('/newpost/:id', {
 		templateUrl: "partials/newevent.html", 
@@ -42,8 +50,11 @@ app.config(function($routeProvider){
 		templateUrl: "partials/event_detail.html", 
 		controller: "evntdetailController"
 	})
+	.when('/admin-dashboard', {
+		templateUrl: 'partials/admin_dashboard.html',
+		controller: "AdminDashboardController"
+	})
 	.otherwise({
 		redirectTo: '/comms'
 	})
-})
-
+});

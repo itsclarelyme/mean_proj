@@ -1,5 +1,5 @@
 {
-  "name": "sample",
+  "name": "comm-dev",
   "authors": [
     "itsclareleme <clarelee0106@gmail.com>"
   ],
@@ -12,7 +12,12 @@
     "angular-route": "^1.6.0",
     "angular-cookies": "^1.6.0",
     "angular-messages": "^1.6.0",
+    "angularjs-toaster": "~0.4.8",
+    "angular-input-stars": "~1.6.3",
+    "ngmap": "~1.17.8",
+    "font-awesome": "^4.5.0",
     "ng-valid": "^1.0.0",
+    "ng-file-upload": "~12.1.0",
     "angular-material": "^1.1.1"
   }
 }

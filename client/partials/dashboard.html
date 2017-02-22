@@ -1,0 +1,30 @@
+
+<h3 class="headline-text">My Communities</h3>
+
+<div class="community">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Community</th>
+            <th>Created Date</th>
+            <th>Members</th>
+            <th>Requesters</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat='community in user.comms | filter:{admin: user._id}:true'>
+            <td>{{ community.comm_name }}</td>
+            <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
+            <td>{{community.member.length - 1}}</td>
+            <td>{{community.requester.length}}</td>
+            <td>
+                <a ng-if="community.status == 'Approved'" href="/#!/comm/manage/{{community._id}}"><button class="btn btn-danger">Manage Community</button></a>
+                <a ng-if="community.status != 'Approved'">{{community.status == 'Rejected' ? 'Rejected' : 'Pending Approve'}}</a>
+                <span ng-if="community.status != 'Approved'" class="btn btn-danger ml-10" ng-click="removeComm(community)">Delete</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

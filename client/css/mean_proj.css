@@ -3,6 +3,11 @@
  	margin: 0px;
  	padding: 0px;
 }
+
+html{
+	height: 100%;
+}
+
 #header-text{
 	font-weight: bold;
 	font-family: 'Lato', verdana, arial, sans-serif;
@@ -12,6 +17,18 @@
 	font-size: 28pt;
 	text-align: center;
 	margin-top: 20px;
+}
+
+body{
+	background: url('../images/background.png') no-repeat;
+	height: auto;
+	position: relative;
+	width: 100%;
+	background-size: cover;
+	min-height: 100%;
+	padding-bottom: 40px;
+	overflow-x: hidden;
+	background-color: black !important;
 }
 
 #main-view{
@@ -52,16 +69,14 @@
 
 #login-container{
 	border: 1px solid black;
-	margin: 0px auto;
 	height: auto;
-	margin-bottom: 100px;
+	margin: 0px auto 100px;
 	width: 440px;
 	background-color: white;
 	color: black;
 	font-family: 'Lato', verdana, arial, sans-serif;
 	border-radius: 12px;
-	padding-bottom: 20px;
-	padding-left: 20px;
+	padding: 15px;
 }
 
 #reg-container{
@@ -76,6 +91,7 @@
 	border-radius: 12px;
 	padding-bottom: 5px;
 	padding-left: 20px;
+	padding-right: 5px;
 }
 
 .has-error{
@@ -91,8 +107,14 @@
 	text-decoration: underline;
 	margin-left: 70px;
 	color: white;
+}
 
-
+.headline-text.tab-head{
+	cursor: pointer;
+}
+.headline-text.tab-head.active{
+	text-decoration: inherit;
+	color: lightgray;
 }
 
 .action-text{
@@ -143,27 +165,21 @@
 
 button.btn.btn-primary{
 	margin: 0px;
-	
 }
 
-body{
-	background:url('../images/background.png');
-	background-repeat:no-repeat;
-	background-size:100%;
-	height: 100%;
-	width: 100%;
-	background-size: cover;*/
+footer.main-footer{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0;
 }
-
 
 #top-nav{
-	margin: 0px auto;
 	height: auto;
-	width: 500px;
+	display: inline-block;
 	font-family: 'Lato', verdana, arial, sans-serif;
 	text-align: center;
-	margin-bottom: 50px;
-
+	margin: 0px auto 50px;
 }
 
 .custom-nav {
@@ -242,18 +258,18 @@ ul.custom-nav li.icon {display: none;}
 
 
 #intro-container{
-	margin: 0px auto;
 	height: auto;
-	width: 720px;
+	max-height: 470px;
+	overflow-x: hidden;
+	/*width: 720px;*/
 	padding-top: 10px;
-	margin-bottom: 100px;
+	margin: 0px auto 20px;
 	padding-bottom: 10px;
 	font-family: 'Lato', verdana, arial, sans-serif;
-	border-radius: 8px;
+	/*border-radius: 8px;*/
 	text-align: left;
 	background-color: white;
 	border: 1px solid black;
-	overflow:auto;
 }
 
 
@@ -306,6 +322,7 @@ ul.custom-nav li.icon {display: none;}
 	display: inline-block;
 }
 
+/*
 .btn-success{
 	margin-left: 100px;
 	margin-top: 20px;
@@ -316,6 +333,7 @@ ul.custom-nav li.icon {display: none;}
 	margin-top: 15px;
 	margin-bottom: 20px;
 }
+*/
 
 
 
@@ -394,4 +412,93 @@ ul.custom-nav li.icon {display: none;}
 	width: 250px;
 	height: auto;
 	list-style-type: none
+}
+
+tr td a{
+	color: white;
+	text-decoration: none;
+}
+
+tr td a:hover{
+	color: white;
+	text-decoration: none;
+}
+
+tr td.control-label{
+	padding-top: 15px !important;
+}
+
+.ml-10{
+	margin-left: 10px !important;
+}
+
+.mt-10{
+	margin-top: 10px !important;
+}
+
+.mt-5{
+	margin-top: 5px !important;
+}
+
+.color-white{
+	color: white !important;
+}
+
+.ft-14{
+	font-size: 14px;
+}
+
+.ft-18{
+	font-size: 18px;
+}
+
+.ft-20{
+	font-size: 20px;
+}
+
+.footer{
+	text-align: center;
+	background-color: black;
+	padding: 10px;
+	color: white;
+}
+
+.msg-panel{
+	border: solid 1px gainsboro;
+	margin-right: 50px;
+	margin-top: 10px;
+	margin-left: 30px;
+	padding: 10px;
+}
+
+.panel-body{
+	background-color: white;
+}
+
+.nav-tabs>li>a{
+	color: white;
+}
+
+.nav-tabs>li>a:focus,
+.nav-tabs>li>a:hover {
+	border-color: #DF9288 #DF9288 #DF9288 !important;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+	background-color: #DF9288 !important;
+}
+
+.nav>li.active>a{
+	background-color: #DF9288 !important;
+	color: white !important;
+}
+
+.lg.angular-input-stars > li{
+	font-size: 25px !important;
+}
+
+.error-lbl{
+	color: red;
+	padding-left: 70px;
+	font-size: 18px;
+	text-shadow: white 1px 1px 1px;
 }

@@ -1,121 +1,209 @@
-<h3 class="center-text">Introduction<br/></h3>
-  <div id="intro-container">
-    <form name='introForm' novalidate="" ng-submit="introForm.$valid && submit_profile()">
-      <div class="form-group" ng-class="{ 'has-error' : introForm.first_name.$invalid && !introForm.first_name.$pristine }">    
-        <div class="col-lg-7" >
-        <div ng-messages="introForm.first_name.$error">
-          <p id="bad-validation" ng-message="required">First Name is required</p>
-        </div>
-          <label class="form-label">First Name:</label> 
-            <input name="first_name" class="form-control" ng-model="profile.first_name" placeholder="First Name" required />
-        </div>
-      </div>
-     
-      <div class="form-group" ng-class="{ 'has-error' : introForm.last_name.$invalid && !introForm.last_name.$pristine }">
-        <div class="col-lg-7" >
-        <div ng-messages="introForm.last_name.$error">
-          <p id="bad-validation" ng-message="required">Last Name is required</p>
-        </div>
-          <label class="form-label">Last Name:</label> 
-            <input name="last_name" class="form-control" ng-model="profile.last_name" placeholder="Last Name" required />
-        </div>
-      </div>
-      
-      <div class="form-group" ng-class="{ 'has-error' : introForm.age.$invalid && !introForm.age.$pristine }">
-        <div class="col-lg-4" >
-          <div ng-messages="introForm.age.$error">
-            <p id="bad-validation" ng-message="required">Age is required</p>
-            <p id="bad-validation" ng-message="min">Age cannot be 0 or negative...</p>
-          </div>
-           <label class="form-label">Age:</label> 
-           <input name="age" class="form-control" min='1' type = "number" ng-model="profile.age" placeholder="Age" required />
-        </div>
-      </div>   
+<div id="exTab2" class="container">
+    <ul class="nav nav-tabs">
+        <li ng-class="{ active: isSet(1) }">
+            <a href ng-click="setTab(1)">Introduction</a>
+        </li>
+        <li ng-class="{ active: isSet(2) }">
+            <a href ng-click="setTab(2)">Profile Picture</a>
+        </li>
+        <li ng-class="{ active: isSet(3) }">
+            <a href ng-click="setTab(3)">Change Password</a>
+        </li>
+    </ul>
 
-        <div class="form-group" ng-class="{ 'has-error' : introForm.gender.$invalid && !introForm.gender.$pristine }">
+    <div class="tab-content ">
+        <div class="tab-pane" ng-show="isSet(1)" ng-class="{ active: isSet(1) }">
+            <div id="intro-container" class="panel-body">
+                <form name='introForm' novalidate="" ng-submit="introForm.$valid && submit_profile()">
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.first_name.$invalid && !introForm.first_name.$pristine }">
+                        <div class="col-lg-7" >
+                            <div ng-messages="introForm.first_name.$error">
+                                <p id="bad-validation" ng-message="required">First Name is required</p>
+                            </div>
+                            <label class="form-label">First Name:</label>
+                            <input name="first_name" class="form-control" ng-model="profile.first_name" placeholder="First Name" required />
+                        </div>
+                    </div>
 
-          <label class="col-lg-5 form-label2">Gender:</label>
-          <div class="col-sm-8">
-                <div ng-messages="introForm.gender.$error">
-                  <p id="bad-validation" ng-message="required">Please select your gender</p>
-                </div>
-                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Male" checked> Male </label>
-                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Female"> Female </label>
-                <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Other"> Other </label>
-          </div>
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.last_name.$invalid && !introForm.last_name.$pristine }">
+                        <div class="col-lg-7" >
+                            <div ng-messages="introForm.last_name.$error">
+                                <p id="bad-validation" ng-message="required">Last Name is required</p>
+                            </div>
+                            <label class="form-label">Last Name:</label>
+                            <input name="last_name" class="form-control" ng-model="profile.last_name" placeholder="Last Name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.age.$invalid && !introForm.age.$pristine }">
+                        <div class="col-lg-4" >
+                            <div ng-messages="introForm.age.$error">
+                                <p id="bad-validation" ng-message="required">Age is required</p>
+                                <p id="bad-validation" ng-message="min">Age cannot be 0 or negative...</p>
+                            </div>
+                            <label class="form-label">Age:</label>
+                            <input name="age" class="form-control" min='1' type = "number" ng-model="profile.age" placeholder="Age" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.gender.$invalid && !introForm.gender.$pristine }">
+
+                        <label class="col-lg-5 form-label2">Gender:</label>
+                        <div class="col-sm-8">
+                            <div ng-messages="introForm.gender.$error">
+                                <p id="bad-validation" ng-message="required">Please select your gender</p>
+                            </div>
+                            <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Male" checked> Male </label>
+                            <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Female"> Female </label>
+                            <label class="radio-inline"> <input type="radio" name="gender" ng-model="profile.gender" name="gender" value="Other"> Other </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.phone.$invalid && !introForm.phone.$pristine }">
+                        <div class="col-lg-7" >
+                            <br>
+                            <div ng-messages="introForm.phone.$error">
+                                <p id="bad-validation" ng-message="required">Phone # is required</p>
+                            </div>
+                            <label class="form-label">Phone Number:</label>
+                            <input name="phone" class="form-control" type="text" phone-input ng-model="profile.phone" placeholder="Phone Number" required />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5" >
+                        <div class="form-group" ng-class="{ 'has-error' : introForm.street.$invalid && !introForm.street.$pristine }">
+                            <label class="form-label">Address:</label>
+                            <div ng-messages="introForm.street.$error">
+                                <p id="bad-validation" ng-message="required">Street address is required</p>
+                                <p id="bad-validation" ng-message="maxlength">Street address is too long</p>
+                            </div>
+                            <input name="street" class="form-control" ng-model="profile.street" placeholder="Street Address" required ng-maxlength='30'/>
+                        </div>
+                        <div ng-messages="introForm.state.$error">
+                            <p id="bad-validation" ng-message="required">State is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : introForm.state.$invalid && !introForm.state.$pristine }">
+                            <select name="state" class="form-control" ng-model="profile.state" ng-minlength='2' required ui-select2>
+                                <option value="">---Please select State---</option>
+                                <option ng-repeat="state in stateArr" value="{{state}}">{{state}}</option>
+                            </select>
+                        </div>
+                        <div ng-messages="introForm.city.$error">
+                            <p id="bad-validation" ng-message="required">City is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : introForm.city.$invalid && !introForm.city.$pristine }">
+                            <input name="city" class="form-control" ng-model="profile.city" placeholder="City" required />
+                        </div>
+                        <div ng-messages="introForm.zip.$error">
+                            <p id="bad-validation" ng-message="required">Zip Code is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : introForm.zip.$invalid && !introForm.zip.$pristine }">
+                            <input name="zip" class="form-control" ng-model="profile.zipcode" placeholder="Zipcode" required />
+                        </div>
+                        <div ng-messages="introForm.country.$error">
+                            <p id="bad-validation" ng-message="required">Country is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : introForm.country.$invalid && !introForm.country.$pristine }">
+                            <input name="country" class="form-control" ng-model="profile.country" placeholder="Country" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.occupation.$invalid && !introForm.occupation$pristine }">
+                        <div class="col-lg-7" >
+                            <div ng-messages="introForm.occupation.$error">
+                                <p id="bad-validation" ng-message="required">Occupation is required</p>
+                            </div>
+                            <label class="form-label">Occupation:</label>
+                            <input name="occupation" class="form-control" ng-model="profile.occupation" placeholder="Occupation" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : introForm.about.$invalid && !introForm.about.$pristine }">
+                        <div class="col-lg-12" >
+                            <div ng-messages="introForm.about.$error">
+                                <p id="bad-validation" ng-message="required">About Me is required</p>
+                            </div>
+                            <label class="form-label">About Me:</label>
+                            <textarea name="about" class="form-control" name="description" rows="8" cols="40" ng-model="profile.about" placeholder="Enter some information about yourself" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="btn btn-primary" type="submit" value="Submit" ng-disabled="introForm.$invalid">
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="form-group" ng-class="{ 'has-error' : introForm.phone.$invalid && !introForm.phone.$pristine }">
-          <div class="col-lg-7" >
-            <br>
-            <div ng-messages="introForm.phone.$error">
-               <p id="bad-validation" ng-message="required">Phone # is required</p>
+        <div class="tab-pane" ng-show="isSet(2)" ng-class="{ active: isSet(2) }">
+            <div class="panel-body">
+                <form class="signin form-horizontal">
+                    <fieldset>
+                        <div class="form-group text-center" ng-if="picFile || vm.photoUrl">
+                            <img ngf-src="vm.fileSelected ? picFile : vm.photoUrl" class="img-thumbnail user-profile-picture" ngf-drop>
+                        </div>
+                        <div ng-show="vm.loading" class="form-group text-center">
+                            <img ng-src="/images/loader.gif" height="50" width="50" alt="Loading image...">
+                        </div>
+                        <div ng-show="!vm.fileSelected" class="text-center form-group">
+                            <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)"
+                                    ng-model="picFile" accept="image/*" ngf-before-model-change="vm.loading = true"
+                                    ngf-resize="{width: 200}" ngf-resize-if="$width > 200 || $height > 200">Select your profile picture</button>
+                        </div>
+                        <div ng-show="vm.fileSelected" class="text-center form-group">
+                            <button class="btn btn-primary" ng-click="vm.upload(picFile)">Use This Picture</button>
+                            <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
+                        </div>
+                        <div ng-show="vm.fileSelected" class="progress text-center">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'">
+                                <span class="sr-only">{{vm.progress}}% Complete</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-             <label class="form-label">Phone Number:</label>
-             <input name="phone" class="form-control" type="text" phone-input ng-model="profile.phone" placeholder="Phone Number" required />
-          </div>  
-        </div>  
-
-          <div class="col-lg-5" >
-             <div class="form-group" ng-class="{ 'has-error' : introForm.street.$invalid && !introForm.street.$pristine }">
-              <label class="form-label">Address:</label>
-              <div ng-messages="introForm.street.$error">
-                <p id="bad-validation" ng-message="required">Street address is required</p>
-                <p id="bad-validation" ng-message="maxlength">Street address is too long</p>
-              </div>
-              <input name="street" class="form-control" ng-model="profile.street" placeholder="Street Address" required ng-maxlength='30'/>
-             </div>
-              <div ng-messages="introForm.state.$error">
-                <p id="bad-validation" ng-message="required">State is required</p>
-              </div>
-              <div class="form-group" ng-class="{ 'has-error' : introForm.state.$invalid && !introForm.statet.$pristine }">
-                <select name="state" class="form-control" ng-model="profile.state" ng-minlength='2' required>
-                  <option value="">---Please select State---</option>
-                  <option>CA</option>
-                </select>
-              </div>
-              <div ng-messages="introForm.city.$error">
-                <p id="bad-validation" ng-message="required">City is required</p>
-              </div>
-             <div class="form-group" ng-class="{ 'has-error' : introForm.city.$invalid && !introForm.city.$pristine }">
-              <input name="city" class="form-control" ng-model="profile.city" placeholder="City" required />
-             </div>
-            <div ng-messages="introForm.zip.$error">
-                <p id="bad-validation" ng-message="required">Zip Code is required</p>
-              </div>
-             <div class="form-group" ng-class="{ 'has-error' : introForm.zip.$invalid && !introForm.zip.$pristine }">
-              <input name="zip" class="form-control" ng-model="profile.zipcode" placeholder="Zipcode" required />
-             </div>
-             <div ng-messages="introForm.country.$error">
-                <p id="bad-validation" ng-message="required">Country is required</p>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error' : introForm.country.$invalid && !introForm.country.$pristine }">
-              <input name="country" class="form-control" ng-model="profile.country" placeholder="Country" required />
-            </div>
-          </div>
-
-         <div class="form-group" ng-class="{ 'has-error' : introForm.occupation.$invalid && !introForm.occupation$pristine }">
-            <div class="col-lg-7" >
-              <div ng-messages="introForm.occupation.$error">
-                <p id="bad-validation" ng-message="required">Occupation is required</p>
-              </div>
-               <label class="form-label">Occupation:</label>
-               <input name="occupation" class="form-control" ng-model="profile.occupation" placeholder="Occupation" required />
-            </div>
-          </div>
-          
-         <div class="form-group" ng-class="{ 'has-error' : introForm.about.$invalid && !introForm.about.$pristine }">  
-          <div class="col-lg-12" >
-            <div ng-messages="introForm.about.$error">
-              <p id="bad-validation" ng-message="required">About Me is required</p>
-            </div>
-             <label class="form-label">About Me:</label>
-             <textarea name="about" class="form-control" name="description" rows="8" cols="40" ng-model="profile.about" placeholder="Enter some information about yourself" required></textarea>
-          </div>
-         </div>
-        <div class="col-sm-2">
-           <input class="btn btn-primary" type="submit" value="Submit" ng-disabled="introForm.$invalid">
         </div>
-    </form>
-  </div>
+        <div class="tab-pane" ng-show="isSet(3)" ng-class="{ active: isSet(3) }">
+            <div class="panel-body">
+                <form name='registrationForm' ng-submit="registrationForm.$valid && change_password()">
+
+                    <div ng-messages="registrationForm.confirmPassword.$error">
+                        <p id="bad-validation" ng-message="compareTo">Passwords do not match</p>
+                    </div>
+
+                    <div class="row form-group" ng-class="{ 'has-error' : registrationForm.password.$invalid && !registrationForm.password.$pristine }">
+                        <div class="col-lg-10">
+                            <p class="action-text">(Passwords must be at least 5 characters long)</p>
+                            <label>Password:</label>
+
+                            <div ng-messages="registrationForm.password.$error">
+                                <p id="bad-validation" ng-message="required">Password is required</p>
+                                <p id="bad-validation" ng-message="minlength">Password has to be at least 5 chars</p>
+                            </div>
+
+                            <input name="password" type="password" class="form-control" ng-model="registration.password" placeholder="Password" required ng-minlength='5'/>
+                        </div>
+                    </div>
+
+
+                    <div class=" row form-group" ng-class="{ 'has-error' : registrationForm.confirmPassword.$invalid && !registrationForm.passwordconf.$pristine }">
+                        <div ng-messages="registrationForm.confirmPassword.$error">
+                            <p id="bad-validation" ng-message="required">Password confirmation is required</p>
+                            <p id="bad-validation" ng-message="minlength">Password confirmation has to be at least 5 chars</p>
+                        </div>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="password" name="confirmPassword" ng-model="registration.passwordconf" compare-to="registration.password" placeholder="Confirm Password" required ng-minlength='5'/>
+                        </div>
+                    </div>
+
+                    <div class="row form-group" >
+                        <div class="col-lg-10" style="margin-top: 10px">
+                            <button class="btn btn-success" type="submit" ng-disabled="registrationForm.$invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<h3 class="center-text" style="color: white">Introduction<br/></h3>-->
 

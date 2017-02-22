@@ -22,12 +22,9 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
     };
 
     this.login_index = function(user_id, callback){
-        console.log("login_index factory user id: " + user_id);
         $http.get('/users/'+user_id).then(function(returned_data){
-        console.log("factory - login_index: " + returned_data.data._intro.first_name);
         if (typeof(callback) == 'function'){
           login_user = returned_data.data;
-          console.log("assign login user ok");
           callback(login_user);
         }
         
@@ -37,14 +34,9 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
 
 
     this.register = function(newuser, callback){
-      console.log("inside factory registering user...")
-      console.log(newuser);
       $http.post('/register', newuser).then(function(returned_data){
-        console.log("back to users factory..");
-        console.log(returned_data.data);
         if (typeof(callback) == 'function'){
           login_user = returned_data.data;
-
           callback(returned_data.data);
         }
 
@@ -52,15 +44,10 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
     };
 
     this.login = function(user, callback){
-      console.log("inside factory login user...")
-      console.log(user);
       $http.post('/login', user).then(function(returned_data){
-        console.log("back to users factory..");
-        console.log(returned_data.data);
         if (typeof(callback) == 'function'){
           login_user = returned_data.data;
           if(!returned_data.data.errors){
-            console.log("no error logging in..adding session");
             setCookieData(login_user._id);
           }
           callback(returned_data.data);
@@ -71,17 +58,13 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
 
     this.get_info = function(user, callback){
       $http.get('/user/' + user._id).then(function(returned_data){
-        console.log("factory get all user info");
-        //console.log(returned_data);
         user = returned_data.data;
         if(typeof(callback) == 'function'){
           callback(user);
         }
       })
-    }
+    };
 
-
-    
     this.add_user = function(newuser, callback){
         $http.post('/user/new', newuser).then(function(data){
           console.log(data);
@@ -90,7 +73,7 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
             callback(data);
           }
         })
-      }
+      };
 
     this.retrieve_user = function(callback){
       $http.get('/user').then(function(data){
@@ -100,11 +83,9 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
           callback(data);
         }
       })
-    }
+    };
 
     this.add_profile = function(profile, callback){
-      console.log("inside factory adding profile intro...")
-      console.log(profile);
       $http.post('/profile', profile).then(function(returned_data){
         console.log("back to users factory..");
         console.log(returned_data.data);
@@ -120,6 +101,16 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
       });
     };
 
+    this.change_password = function(data, callback){
+      $http.post('/api/users/change-password', data).then(
+          function(res){
+            callback(null, res);
+          },
+          function(err){
+            callback(err);
+          }
+      )
+    };
 
     this.show = function(user_id, callback){
         $http.get('/users/'+user_id).then(function(returned_data){
@@ -136,17 +127,16 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
         var expired = new Date();
         expired.setDate(expired.getDate() + 1);
         $cookies.put("login_user", id, {expires : expired });
-    }
+    };
 
     this.getCookieData = function(){
       return $cookies.get("login_user");
-
-    }
+    };
 
     this.clearCookieData = function(){
       login_user = {};
       $cookies.remove("login_user");
-    }
+    };
 
 
     this.remove_req = function(doc, callback){
@@ -157,9 +147,18 @@ app.factory('usersFactory', ['$http', '$cookies', function($http, $cookies){
           callback(data);
         }
       })
+    };
+
+    this.remove_user = function(id, callback){
+      $http.post('/api/users/delete-user', {id: id}).then(
+          function(res){
+            callback(null, res);
+          },
+          function(err){
+            callback(err);
+          }
+      )
     }
-
-
   }
 
 

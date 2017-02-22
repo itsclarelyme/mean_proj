@@ -1,55 +1,46 @@
 
 <h1 class="headline-text">My Communities</h1>
-
-
-  <p id="login-text" ng-if="user._intro.first_name && user._intro.last_name">Welcome <span id="user-text">{{ user._intro.first_name }} {{ user._intro.last_name }}</span>!</p>
-
+<p id="login-text" ng-if="user._intro.first_name && user._intro.last_name">Welcome <span id="user-text">{{ user._intro.first_name }} {{ user._intro.last_name }}</span>!</p>
+<div ng-if="!user._intro || !user._intro.first_name" class="error-lbl">
+    Please finish creating your <a href="#!/introduction/{{user._id}}">profile</a> to register
+</div>
 <div class="community">
 
- <!--  {{user._id}}
-  {{user.req_comms}} -->
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Community</th>
-        <th>Created Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat='community in user.comms'>
-        <td>{{ community.comm_name }}</td>
-        <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
-        <td><a ng-if="!isAdmin(community)" href="/#!/comm/{{community._id}}"><button class="btn btn-danger">Enter Community</button></a><a ng-if="isAdmin(community)" href="/#!/comm/{{community._id}}"><button class="btn btn-danger">Manage Community</button></a></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <div ng-if="user.req_comms">
-    <h3>Recent Requests</h3>
-      <table class="table">
+    <table class="table">
         <thead>
-          <th>Community Name</th>
-          <th>Action</th>
+        <tr>
+            <th>Community</th>
+            <th>Created Date</th>
+            <th>Members</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="req in user.req_comms">
-            <td ng-bind="req.comm_name"></td>
-            <td><button class="btn btn-danger" ng-click="remove_req(req._id)">Cancel Request</button></td>
-
-          </tr>
-
+        <tr ng-repeat='community in user.comms | filter: {status: "Approved"}:true'>
+            <td>{{ community.comm_name }}</td>
+            <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
+            <td>{{community.member.length}}</td>
+            <td>
+                <a href="/#!/comm/join/{{community._id}}"><button class="btn btn-danger">Enter Community</button></a>
+            </td>
+        </tr>
         </tbody>
+    </table>
 
-
-      </table>
-
-
-  </div>
-
-
-
+    <div ng-if="user.req_comms">
+        <h3>Recent Requests</h3>
+        <table class="table">
+            <thead>
+            <th>Community Name</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="req in user.req_comms">
+                <td ng-bind="req.comm_name"></td>
+                <td><button class="btn btn-danger" ng-click="remove_req(req._id)">Cancel Request</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 

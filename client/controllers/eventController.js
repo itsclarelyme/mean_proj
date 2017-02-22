@@ -32,7 +32,7 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 		//console.log($routeParams);
 		commFactory.get_comminfo($routeParams, function(returndate){
 			$scope.comm = returndate.data;
-			//console.log($scope.comm);
+			console.log($scope.comm);
 		})
 	}
 	comm_index();
@@ -63,12 +63,8 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 	$scope.newevent = function(){
 		$scope.thisevent.poster = $scope.user;
 		$scope.thisevent._comm = $scope.comm;
-		$scope.thisevent.status = false;
-		console.log($scope.thisevent);
-		console.log($routeParams.id);
 		eventFactory.create_event($scope.thisevent, function(returndata){
-
-			$location.url('/comm/' + $scope.comm._id);
+			$location.url('/comm/join/' + $scope.comm._id);
 		})
 	}
 

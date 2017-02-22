@@ -1,78 +1,96 @@
-
+<div ng-if="user._id">
+  <div class="row">
+    <div class="col-xs-2">&nbsp;</div>
+    <div class="col-xs-6">
+      <input class="form-control" placeholder="please input zip code to search" ng-model="search_zip_code.val">
+    </div>
+    <div class="col-xs-2">
+      <button class="btn btn-primary" ng-click="searchByZipcode()">Search</button>
+    </div>
+    <div class="col-xs-2">&nbsp;</div>
+  </div>
+  <div class="mt-10 row">
+    <div class="col-xs-2">&nbsp;</div>
+    <div class="col-xs-8">
+      <div map-lazy-load="https://maps.google.com/maps/api/js"
+           map-lazy-load-params="{{googleMapsUrl}}">
+        <ng-map center="41,-87" zoom="8">
+          <marker ng-repeat="markPoint in markPoints" position="{{markPoint.lat}}, {{markPoint.lng}}" title="{{markPoint.title}}" on-click="goAnchor(markPoint)"></marker>
+        </ng-map>
+      </div>
+    </div>
+    <div class="col-xs-2">&nbsp;</div>
+  </div>
+</div>
 <h1 class="headline-text">Communities</h1>
-
-<!-- <hr>{{communities}}<hr>
-{{users}}<hr>
-{{user}}<hr> -->
 <hr>
-
 <div class="community">
-
   <table class="table">
     <thead>
       <tr>
         <th>Community</th>
         <th>Created Date</th>
+        <th>Created by</th>
         <th>Details</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='community in communities'>
+      <tr ng-repeat='community in filterComms'>
         <td><a style="font-weight: bold" href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
+        <td>{{community.admin._intro.first_name}} {{community.admin._intro.last_name}}</td>
         <td><!-- Button trigger modal -->
-          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          <button class="btn btn-primary" ng-click="openModal(community)">
             Details
           </button>
-          
         </td>
-        <td><p ng-if="isRequest(community)">Request Pending</p><button class="btn btn-danger" ng-if="isMember(community)">Enter Community</button><button class="btn btn-danger" ng-if="!isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
+        <td>
+          <p ng-if="isRequest(community)">Request Pending</p>
+          <a class="btn btn-danger" ng-if="user._id && isMember(community)" href="/#!/comm/join/{{community._id}}">Enter Community</a>
+          <button class="btn btn-danger" ng-if="user._id && !isMember(community) && !isRequest(community)" ng-click="join_comm(community._id)">Join Community!</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">{{ community.comm_name }}</h4>
-            </div>
-            <div class="modal-body">
-              This is the details of {{ community.comm_name }} that was established on {{community.updatedAt | date: "MMM. dd, yyyy"}} ! If you wish to have the opportunity to join in and contribute to the community, we will review your account and accept/decline your request. Thank you for your time.
-              </div>
-            </div>
-          </div>
-        </div>
 
-
-   <!--    
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">{{ community.comm_name }}</h4>
-            </div>
-            <div class="modal-body">
-              This is the details of {{ community.comm_name }} that was established on {{community.updatedAt | date: "MMM. dd, yyyy"}} ! If you wish to have the opportunity to join in and contribute to the community, we will review your account and accept/decline your request. Thank you for your time.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-<div class="community">
+<div class="community" ng-if="user._id">
     <h2>Add community</h2>
-    <form ng-submit="createComm()" class="form-inline">
+    <form ng-submit="createComm()">
       <div class="form-group">
-        <label for="communityName">Community Name</label>
-        <input type="text" class="form-control" id="communityName" ng-model="community.comm_name">
-        <label for="communityLocation">Location</label>
-        <input id="comm_city" type="text" ng-model="community.location" placeholder="city">
-        <input type="hidden" ng-model="community.admin" ng-value="{{user}}">
+        <div class="row">
+          <div class="col-xs-3">
+            <label for="communityName">Community Name*</label>
+            <input type="text" class="form-control" id="communityName" ng-model="community.comm_name" required>
+            <label for="communityZip">Zip Code*</label>
+            <input type="text" class="form-control" id="communityZip" ng-model="community.zip_code" required>
+          </div>
+          <div class="col-xs-6">
+            <label for="comm_city">Description</label>
+            <textarea rows="4" class="form-control" id="comm_city" ng-model="community.description"></textarea>
+          </div>
+          <div class="col-xs-3">
+            <input type="hidden" ng-model="community.admin" ng-value="{{user}}">
+            <label style="width: 100%">&nbsp;</label>
+            <button class="btn btn-primary" type="submit">Create new Community</button>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-primary" type="submit">Create new Community</button>
     </form>
+</div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ item.comm_name }}</h4>
+      </div>
+      <div class="modal-body">
+        This is the details of {{ item.comm_name }} that was established on {{item.updatedAt | date: "MMM. dd, yyyy"}}!
+        <p>{{item.description}}</p>
+        If you wish to have the opportunity to join in and contribute to the community, we will review your account and accept/decline your request. Thank you for your time.
+      </div>
+    </div>
+  </div>
 </div>

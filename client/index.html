@@ -8,7 +8,10 @@
     <script src="angular-route/angular-route.min.js"></script>
     <script src = 'angular-cookies/angular-cookies.js'></script>
     <script src="angular-messages/angular-messages.min.js"></script>
+	<script src="angular-animate/angular-animate.min.js"></script>
+	<script src="angularjs-toaster/toaster.min.js"></script>
     <script src="ng-valid/dist/ng-valid.min.js"></script>
+	<script src="ng-file-upload/ng-file-upload.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./css/mean_proj.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -20,8 +23,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="angular-input-stars/angular-input-stars.css">
+	<link rel="stylesheet" href="angularjs-toaster/toaster.min.css" type="text/css">
 
+	<script src="angular-input-stars/angular-input-stars.js"></script>
 
+	<script src="ngmap/build/scripts/ng-map.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js"></script>
 
 	<script src="./assets/config.js"></script>
 	<script src="./assets/custom_dirs_filters.js"></script>
@@ -29,13 +38,17 @@
 	<script src="./factories/interFactory.js"></script>
 	<script src="./factories/eventFactory.js"></script>
 	<script src="./factories/commFactory.js"></script>
+	<script src="./controllers/AppController.js"></script>
 	<script src="./controllers/mainController.js"></script>
 	<script src="./controllers/commController.js"></script>
-	<script src="./controllers/communityController.js"></script>
+	<script src="./controllers/commManageController.js"></script>
+	<script src="./controllers/commJoinController.js"></script>
 	<script src="./controllers/mycommController.js"></script>
+	<script src="./controllers/DashboardController.js"></script>
 	<script src="./controllers/eventController.js"></script>
 	<script src="./controllers/evntdetailController.js"></script>
 	<script src="./controllers/LoginRegisterController.js"></script>
+	<script src="./controllers/AdminDashboardController.js"></script>
 
 	<script type="text/javascript">
 		
@@ -49,38 +62,38 @@
 		}
 
 	</script>
-
-
 </head>
 
 
-<body ng-app="app">
+<body ng-app="app" ng-controller="AppController">
+
+	<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
     <div id="top-section">
       <img id="top-banner" src="./images/lend2.png">
     </div>
-	<div id="top-nav">
-
-		<ul class="custom-nav" id="myTopnav">
-		  <li><a href="#!/comms">Communities</a></li>
-		  <li><a href="#!/mycomm">Dashboard</a></li>
-		  <li><a href="#!/login">Login</a></li>
-		  <li><a href="#!/register">Register</a></li>
-		  <li><a href="#!/logout">Logout</a></li>
-		  <li class="icon">
-		    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
-		  </li>
-		</ul>
-
-
+	<div style="text-align: center">
+		<div id="top-nav">
+			<ul class="custom-nav" id="myTopnav">
+				<li><a href="#!/comms">Communities</a></li>
+				<li ng-if="user"><a href="#!/mycomm">My Communities</a></li>
+				<li ng-if="user"><a href="#!/dashboard">Dashboard</a></li>
+				<li ng-if="!user"><a href="#!/login">Login</a></li>
+				<li ng-if="!user"><a href="#!/register">Register</a></li>
+				<li ng-if="user"><a href="#!/introduction/{{user._id}}">Profile</a></li>
+				<li ng-if="user && user.role == 'admin'"><a href="#!/admin-dashboard">Admin Dashboard</a></li>
+				<li ng-if="user"><a href="#!/logout">Logout</a></li>
+				<li class="icon">
+					<a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+				</li>
+			</ul>
+		</div>
 	</div>
-
-
-
 	<div id="main-view" ng-view=""></div>
-
-
-
-
+	<footer class="main-footer">
+		<div class="footer">
+			i Lend You © Copyright 2016
+		</div>
+	</footer>
 </body>
 
 

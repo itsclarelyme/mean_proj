@@ -14,6 +14,7 @@ var introSchema = new mongoose.Schema ({
 	occupation: {type: String},
 	age: {type: Number},
 	gender: {type: String},
+	photo: {type: String, default: './images/profile_images/default_pic.png'},
 	_user: {type: Schema.Types.ObjectId, ref: 'User', required: true}},
 	{timestamps: true});
 mongoose.model('Intro', introSchema);
