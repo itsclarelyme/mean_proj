@@ -155,4 +155,17 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		$scope.item = ($filter('filter')($scope.communities, {_id: marker._id}))[0];
 		$('#myModal').modal('show');
 	};
-}]);
+}])
+	.directive('enterKey', function () {
+		return function (scope, element, attrs) {
+			element.bind("keydown keypress", function (event) {
+				if(event.which === 13) {
+					scope.$apply(function (){
+						scope.$eval(attrs.enterKey);
+					});
+
+					event.preventDefault();
+				}
+			});
+		};
+	});
