@@ -24,7 +24,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 	var event_index = function(){
 		eventFactory.get_info($routeParams, function(returndata){
 			$scope.thisevent = returndata.data;
-			console.log($scope.thisevent);
+			// console.log($scope.thisevent);
 			$scope.message = {msg: ''};
 		})
 	};
@@ -107,7 +107,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 				var reviewArr = res.data,
 					arr = [];
 				var ratingSum = 0;
-				console.log(reviewArr);
+				// console.log(reviewArr);
 				for (var i = 0; i < reviewArr.length; i++) {
 					ratingSum += (reviewArr[i].rating / reviewArr.length);
 					arr.push({

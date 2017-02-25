@@ -12,8 +12,8 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
      	usersFactory.login_index(user_id, function (data) {
       		$scope.user = data;
 			geocoder.geocode({address: $scope.user._intro.zipcode}, function(result, status){
-				console.log(result);
-				console.log(status);
+				// console.log(result);
+				// console.log(status);
 
 				if (status == 'OK'){
 					NgMap.getMap().then(function(map){
@@ -29,7 +29,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
     	get_login_session(usersFactory.getCookieData());
   	}
   	else{
-  		console.log("user not logged in"); 
+  		// console.log("user not logged in");
   	}
 
 	var comm_index = function(){
@@ -43,7 +43,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		$scope.community.admin = $scope.user;
 		commFactory.create_comm($scope.community, function(err, returnedata){
 			$scope.community = {};
-			console.log(returnedata);
+			// console.log(returnedata);
 			//comm_index();
 			if (err)
 				toaster.pop('error', 'Error', 'Fail create new community.');
@@ -82,20 +82,43 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		$('#myModal').modal('show');
 	};
 
-	$scope.search_zip_code = {val: ''};
-	$scope.searchByZipcode = function(){
-		geocoder.geocode({address: $scope.search_zip_code.val}, function(result, status){
-			if (status == 'OK'){
-				console.log(result[0].geometry.location.lat() + ':' + result[0].geometry.location.lng());
-				NgMap.getMap().then(function(map){
-					map.setCenter(result[0].geometry.location);
-					filterByZipcode(result[0].geometry.location);
-				});
-			}
-			else {
-				console.log(status);
-			}
-		})
+	function searchByzipCode(commObj){
+		if (commObj){
+			geocoder.geocode({address: commObj.zip_code}, function(result, status){
+				if (status == 'OK'){
+					NgMap.getMap().then(function(map){
+						map.setCenter(result[0].geometry.location);
+						$scope.markPoints = [
+							{_id: commObj._id, title: commObj.comm_name, lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()}
+						]
+					});
+				}
+				else {
+				}
+			})
+		}
+		else if ($scope.search_zip_code.val){
+			geocoder.geocode({address: $scope.search_zip_code.val}, function(result, status){
+				if (status == 'OK'){
+					// console.log(result[0].geometry.location.lat() + ':' + result[0].geometry.location.lng());
+					NgMap.getMap().then(function(map){
+						map.setCenter(result[0].geometry.location);
+						filterByZipcode(result[0].geometry.location);
+					});
+				}
+				else {
+					// console.log(status);
+				}
+			})
+		}
+		else{
+			$scope.filterComms = $scope.communities;
+		}
+	}
+
+	$scope.search_zip_code = {val: '', limit: 10};
+	$scope.searchByZipcode = function(zip_code){
+		searchByzipCode(zip_code);
 	};
 
 	function getDistance(location1, location2) {
@@ -133,7 +156,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 					geocoder.geocode({address: commObj.zip_code}, function(result, status){
 						if (status == 'OK'){
 							var dis = getDistance(origin_location, result[0].geometry.location);
-							console.log(dis);
+							// console.log(dis);
 							if (dis < 20){ // lesss than 20 mile
 								markers.push({_id: commObj._id, title: commObj.comm_name, lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()});
 								filterArr.push(commObj);
@@ -155,6 +178,9 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		$scope.item = ($filter('filter')($scope.communities, {_id: marker._id}))[0];
 		$('#myModal').modal('show');
 	};
+
+	$scope.currentPage = 1;
+	$scope.pageSize = 10;
 }])
 	.directive('enterKey', function () {
 		return function (scope, element, attrs) {
@@ -167,5 +193,34 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 					event.preventDefault();
 				}
 			});
+		};
+	})
+	.directive('convertToNumber', function() {
+		return {
+			require: 'ngModel',
+			link: function(scope, element, attrs, ngModel) {
+				ngModel.$parsers.push(function(val) {
+					return parseInt(val, 10);
+				});
+				ngModel.$formatters.push(function(val) {
+					return '' + val;
+				});
+			}
+		};
+	})
+	.directive('checkZip', function() {
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: function(scope, elem, attr, ngModel) {
+				ngModel.$validators.zipcode = function(val) {
+					var regexp = /^\d{5}(?:[-\s]\d{4})?$/;
+					if (val) {
+						return regexp.test(val);
+					} else {
+						return true;
+					}
+				};
+			}
 		};
 	});

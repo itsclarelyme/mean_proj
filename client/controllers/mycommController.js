@@ -10,7 +10,7 @@ app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$l
     };
 
     if(usersFactory.getCookieData()){
-        console.log(usersFactory.getCookieData());
+        // console.log(usersFactory.getCookieData());
         get_login_session(usersFactory.getCookieData());
     }
     else{

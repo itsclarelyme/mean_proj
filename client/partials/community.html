@@ -1,4 +1,4 @@
-<div ng-if="user._id">
+<div>
   <div class="row">
     <div class="col-xs-2">&nbsp;</div>
     <div class="col-xs-6">
@@ -7,7 +7,7 @@
     <div class="col-xs-2">
       <button class="btn btn-primary" ng-click="searchByZipcode()">Search</button>
     </div>
-    <div class="col-xs-2">&nbsp;</div>
+    <div class="col-xs2">&nbsp;</div>
   </div>
   <div class="mt-10 row">
     <div class="col-xs-2">&nbsp;</div>
@@ -15,14 +15,27 @@
       <div map-lazy-load="https://maps.google.com/maps/api/js"
            map-lazy-load-params="{{googleMapsUrl}}">
         <ng-map center="41,-87" zoom="8">
-          <marker ng-repeat="markPoint in markPoints" position="{{markPoint.lat}}, {{markPoint.lng}}" title="{{markPoint.title}}" on-click="goAnchor(markPoint)"></marker>
+          <marker ng-repeat="markPoint in markPoints | limitTo:search_zip_code.limit" position="{{markPoint.lat}}, {{markPoint.lng}}" title="{{markPoint.title}}" on-click="goAnchor(markPoint)"></marker>
         </ng-map>
       </div>
     </div>
     <div class="col-xs-2">&nbsp;</div>
   </div>
 </div>
-<h1 class="headline-text">Communities</h1>
+<h1 class="headline-text">
+  Communities
+  <div style="float: right; margin-right: 20px;">
+    <label class="ft-18">Filter :</label>
+    <input class="form-control" style="display: inline-block; width: 150px" ng-model="q">
+    <label class="ft-18">Limit results to :</label>
+    <select class="form-control" style="display: inline-block; width: 100px" ng-model="pageSize" convert-to-number>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+    </select>
+  </div>
+</h1>
 <hr>
 <div class="community">
   <table class="table">
@@ -36,8 +49,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='community in filterComms'>
-        <td><a style="font-weight: bold" href="/#!/comm/{{community._id}}" >**** {{ community.comm_name }} ****</a></td>
+      <tr dir-paginate='community in filterComms | filter:q | itemsPerPage: pageSize' current-page="currentPage">
+        <td><a style="font-weight: bold" href ng-click="searchByZipcode(community)">{{ community.comm_name }}</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
         <td>{{community.admin._intro.first_name}} {{community.admin._intro.last_name}}</td>
         <td><!-- Button trigger modal -->
@@ -52,22 +65,28 @@
       </tr>
     </tbody>
   </table>
+  <div class="text-center">
+    <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+  </div>
 </div>
 
 <div class="community" ng-if="user._id">
     <h2>Add community</h2>
-    <form ng-submit="createComm()">
+    <form ng-submit="newForm.$valid && createComm()" name="newForm">
       <div class="form-group">
         <div class="row">
           <div class="col-xs-3">
             <label for="communityName">Community Name*</label>
             <input type="text" class="form-control" id="communityName" ng-model="community.comm_name" required>
-            <label for="communityZip">Zip Code*</label>
-            <input type="text" class="form-control" id="communityZip" ng-model="community.zip_code" required>
+            <label for="zip_code">Zip Code*</label>
+            <input type="text" class="form-control" id="zip_code" name="zip_code" ng-model="community.zip_code" required ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/">
+            <div ng-hide="newForm.zip_code.$valid">
+              <p style="color: red">Zip code is invalid</p>
+            </div>
           </div>
           <div class="col-xs-6">
             <label for="comm_city">Description</label>
-            <textarea rows="4" class="form-control" id="comm_city" ng-model="community.description"></textarea>
+            <textarea rows="4" class="form-control" id="comm_city" ng-model="community.description" required></textarea>
           </div>
           <div class="col-xs-3">
             <input type="hidden" ng-model="community.admin" ng-value="{{user}}">

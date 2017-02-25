@@ -1,4 +1,4 @@
-console.log("Main dashboard controller...");
+// console.log("Main dashboard controller...");
 app.controller('mainController', ['$scope', 'usersFactory', '$location', function($scope, usersFactory, $location){
 	//scope variable
 	$scope.login_user = {};
@@ -7,14 +7,14 @@ app.controller('mainController', ['$scope', 'usersFactory', '$location', functio
       usersFactory.login_index(user_id, function (data) {
       $scope.login_user = data;
         
-      console.log("login - back to dash controller:");
-      console.log("login user object " + $scope.login_user);
+      // console.log("login - back to dash controller:");
+      // console.log("login user object " + $scope.login_user);
 
     }); 
   }
 
   if(usersFactory.getCookieData()){
-    console.log("cookie exists"); 
+    // console.log("cookie exists");
     // calls to check if session exists 
     get_login_session(usersFactory.getCookieData());
   }

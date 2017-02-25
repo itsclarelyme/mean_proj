@@ -10,14 +10,14 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
       	usersFactory.login_index(user_id, function (data) {
       	$scope.user = data;
         
-      	console.log("login - back to dash controller:");
-      	console.log("login user object " + $scope.user);
+      	// console.log("login - back to dash controller:");
+      	// console.log("login user object " + $scope.user);
 
     	}); 
   	}
 
   	if(usersFactory.getCookieData()){
-    	console.log("cookie exists"); 
+    	// console.log("cookie exists");
     	// calls to check if session exists 
     	get_login_session(usersFactory.getCookieData());
   	}
@@ -29,19 +29,19 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 	var comm_index = function(){
 		//CHANGE TO CORRESPOND TO SESSION
 		//$scope.comm = {"_id": $routeParams.id};
-		//console.log($routeParams);
+		//// console.log($routeParams);
 		commFactory.get_comminfo($routeParams, function(returndate){
 			$scope.comm = returndate.data;
-			console.log($scope.comm);
+			// console.log($scope.comm);
 		})
 	}
 	comm_index();
 
 	//check if user is a member
 	$scope.isMember = function(comm){
-		//console.log(comm);
+		//// console.log(comm);
 		for(var i = 0; i < comm.length; i++){
-			//console.log(i + " iter: " + comm[i]._id == $scope.user._id);
+			//// console.log(i + " iter: " + comm[i]._id == $scope.user._id);
 			if(comm[i]._id == $scope.user._id){
 				return true;
 			} 
@@ -51,7 +51,7 @@ app.controller('eventController', ['$scope','$routeParams','$location', 'eventFa
 
 	//find comms that user is admin
 	$scope.isAdmin = function(admin){
-		//console.log($scope.user._id == admin._id);
+		//// console.log($scope.user._id == admin._id);
 		if($scope.user._id == admin._id){
 			return true;
 		}

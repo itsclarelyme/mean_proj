@@ -8,7 +8,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     $scope.item = null;
 
     var get_login_session = function(user_id, cb1, cb2) {
-        console.log('------ get user ------');
+        // console.log('------ get user ------');
         usersFactory.login_index(user_id, function (data) {
             $scope.user = data;
             cb1(cb2);
@@ -16,7 +16,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     };
 
      var user_index = function(next){
-         console.log('------ get users ------');
+         // console.log('------ get users ------');
      	usersFactory.retrieve_user(function(returndata){
      		$scope.users = returndata.data;
             next();
@@ -24,15 +24,15 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
      };
 
     var comm_index = function(){
-        console.log('------ get comms ------');
+        // console.log('------ get comms ------');
         commFactory.retrieve_comm({}, function(returnedata){
-            console.log(returnedata.data);
+            // console.log(returnedata.data);
             $scope.communities = returnedata.data;
         })
     };
 
     var init = function(){
-        console.log('------ init ------');
+        // console.log('------ init ------');
         get_login_session(usersFactory.getCookieData(), user_index , comm_index);
     };
 
@@ -41,10 +41,10 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
         reqItem.status = approved ? 'Approved' : 'Rejected';
         commFactory.update_comm(reqItem, function(err, res){
             if (err){
-                console.log(err);
+                // console.log(err);
             }
             else {
-                console.log(res);
+                // console.log(res);
                 item.status = reqItem.status;
             }
         })
@@ -61,7 +61,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     var removeUser = function(item){
         usersFactory.remove_user(item._id, function(err, res){
             if (err){
-                console.log(err);
+                // console.log(err);
                 toaster.pop('error', 'Error', 'Fail remove user.');
             }
             else {

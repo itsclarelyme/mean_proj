@@ -33,8 +33,8 @@ app.controller('commManageController', ['$scope', '$routeParams', '$location', '
 			approved: approved
 		};
 		commFactory.approve_request(data, function(err, res){
-			console.log(err);
-			console.log(res);
+			// console.log(err);
+			// console.log(res);
 			if (!err){
 				toaster.pop('success', 'Success', (approved ? 'Approved' : 'Rejected') + ' successfully.');
 				if (approved)

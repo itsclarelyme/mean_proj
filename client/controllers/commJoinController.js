@@ -48,7 +48,7 @@ app.controller('commJoinController', ['$scope','$routeParams','$location', 'comm
             return false;
         //console.log(comm);
         for(var i = 0; i < reqt.length; i++){
-            console.log(i + " iter: " + reqt[i]._id == $scope.user._id);
+            // console.log(i + " iter: " + reqt[i]._id == $scope.user._id);
             if(reqt[i]._id == $scope.user._id){
                 return true;
             }
