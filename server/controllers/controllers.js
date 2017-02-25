@@ -298,7 +298,7 @@ function Controller(){
 			return res.status(422).send({message: 'invalid request data'});
 		Event.findOne({_id: newmsg._event}, function(err, event){
 			if (err || !event)
-				return res.status(422).send({message: 'can not find event.'});
+				return res.status(422).send({message: 'cannot find event.'});
 			if (event.status)
 				return res.status(422).send({message: 'sorry, this event was completed already.'});
 
