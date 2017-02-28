@@ -15,6 +15,7 @@ app.factory('commFactory', ['$http', function($http){
 		// 	})
 		// }
 
+		// get list of communities
 		this.retrieve_comm = function(query, callback){
 			$http.get('/comm', query).then(function(data){
 				//console.log(data);
@@ -24,6 +25,7 @@ app.factory('commFactory', ['$http', function($http){
 			})
 		};
 
+		// create a new comm
 		this.create_comm = function(newcomm, callback){
 			$http.post('/comm/new', newcomm).then(
 				function(data){
@@ -39,6 +41,7 @@ app.factory('commFactory', ['$http', function($http){
 			)
 		};
 
+		// request join to a comm
 		this.join_comm = function(request, callback){
 			$http.post('/comm/request', request).then(function(data){
 				//console.log(data);
@@ -49,6 +52,7 @@ app.factory('commFactory', ['$http', function($http){
 			})
 		};
 
+		// get detail info of a comm
 		this.get_comminfo = function(info, callback){
 			$http.get('/comm/' + info.id).then(function(data){
 				//console.log(data);
@@ -59,6 +63,7 @@ app.factory('commFactory', ['$http', function($http){
 			})
 		};
 
+		// update comm data
 		this.update_comm = function(newcomm, callback){
 			$http({
 				url: '/comm/' + newcomm._id,
@@ -74,6 +79,7 @@ app.factory('commFactory', ['$http', function($http){
 			);
 		};
 
+		// remove a comm
 		this.remove_comm = function(comm, callback){
 			$http({
 				url: '/comm/' + comm._id,
@@ -88,6 +94,7 @@ app.factory('commFactory', ['$http', function($http){
 			)
 		};
 
+		// approve or reject a requested join
 		this.approve_request = function(data, callback){
 			$http.post('/comm/approve-request', data)
 				.then(
@@ -103,5 +110,4 @@ app.factory('commFactory', ['$http', function($http){
 	}
 
 	return new commFactory();
-
-}])
+}]);

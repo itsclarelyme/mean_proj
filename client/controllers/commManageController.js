@@ -27,6 +27,7 @@ app.controller('commManageController', ['$scope', '$routeParams', '$location', '
 	comm_index();
 
 	$scope.approveReq = function(requester, approved){
+		// approve or reject a join request
 		var data = {
 			id: $scope.comm._id,
 			userId: requester._id,

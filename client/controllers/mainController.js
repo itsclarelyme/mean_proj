@@ -11,7 +11,7 @@ app.controller('mainController', ['$scope', 'usersFactory', '$location', functio
       // console.log("login user object " + $scope.login_user);
 
     }); 
-  }
+  };
 
   if(usersFactory.getCookieData()){
     // console.log("cookie exists");

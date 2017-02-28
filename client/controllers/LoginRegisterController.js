@@ -114,6 +114,7 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 	});
 
 	$scope.submit_profile = function(){
+		// submit profile
 		$scope.profile._user = user_id;
         usersFactory.add_profile($scope.profile, function(data){
     		// console.log("intro controller");
@@ -122,21 +123,13 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 	     	}
 	      	else{
 	        	$location.url('/mycomm');
-/*
-				usersFactory.login_index(user_id, function (data) {
-					$scope.user = data;
-					$scope.profile = angular.copy($scope.user._intro);
-					vm.photoUrl = angular.copy($scope.profile.photo);
-					if (!$scope.profile.photo)
-						$scope.tab = 2;
-				});
-*/
 	      	}
     	})
   	};
 
 
 	vm.upload = function (dataUrl) {
+		// upload profile image
 		Upload.upload({
 			url: '/api/users/picture',
 			data: {
@@ -156,8 +149,6 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 
 	// Called after the user has successfully uploaded a new picture
 	function onSuccessItem(response) {
-		// console.log(response);
-		// Reset form
 		vm.photoUrl = response;
 		$scope.profile.photo = vm.photoUrl;
 		vm.fileSelected = false;
@@ -174,6 +165,7 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 	$scope.tab = 1;
 
 	$scope.setTab = function(newTab){
+		// change tab
 		if ($scope.tab == 1 && !$scope.user._intro)
 			return false;
 		if ($scope.tab == 2 &&  !$scope.profile.photo)
@@ -187,6 +179,7 @@ app.controller('IntroController', ['$scope', 'usersFactory', '$location', '$rout
 
 	$scope.registration = {};
 	$scope.change_password = function(){
+		// change password
 		var reqData = {
 			_id: $scope.user._id,
 			password: $scope.registration.password

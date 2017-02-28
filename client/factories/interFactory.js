@@ -14,19 +14,8 @@ app.factory('interFactory', ['$http', function($http){
 		// 		};
 		// 	})
 		// }
-
-
-
-
-
-
-
-
-
 	}
 
 	return new interFactory();
 
-
-
-}])
+}]);

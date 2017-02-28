@@ -11,10 +11,8 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	var get_login_session = function(user_id) {
      	usersFactory.login_index(user_id, function (data) {
       		$scope.user = data;
+			// set map center to user's zip code
 			geocoder.geocode({address: $scope.user._intro.zipcode}, function(result, status){
-				// console.log(result);
-				// console.log(status);
-
 				if (status == 'OK'){
 					NgMap.getMap().then(function(map){
 						map.setCenter(result[0].geometry.location);
@@ -40,6 +38,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	comm_index();
 
 	$scope.createComm = function(){
+		// create a new community
 		$scope.community.admin = $scope.user;
 		commFactory.create_comm($scope.community, function(err, returnedata){
 			$scope.community = {};
@@ -53,6 +52,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	};
 
 	$scope.join_comm = function(comm_id){
+		// join to a community
 		$scope.join = {comm: comm_id, user: $scope.user._id};
 		commFactory.join_comm($scope.join, function(returnedata){
 			comm_index();
@@ -83,7 +83,9 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	};
 
 	function searchByzipCode(commObj){
+		// filter and mark to map using zip code
 		if (commObj){
+			// when click community name in table
 			geocoder.geocode({address: commObj.zip_code}, function(result, status){
 				if (status == 'OK'){
 					NgMap.getMap().then(function(map){
@@ -98,6 +100,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 			})
 		}
 		else if ($scope.search_zip_code.val){
+			// when click search button
 			geocoder.geocode({address: $scope.search_zip_code.val}, function(result, status){
 				if (status == 'OK'){
 					// console.log(result[0].geometry.location.lat() + ':' + result[0].geometry.location.lng());
@@ -122,6 +125,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	};
 
 	function getDistance(location1, location2) {
+		// calculate distance between two location
 		var lat1 = location1.lat(),
 			lng1 = location1.lng(),
 			lat2 = location2.lat(),
@@ -141,6 +145,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	$scope.markPoints = [];
 
 	function filterByZipcode(origin_location){
+		// filter community by zipcode and distance
 		var markers = [];
 		var filterArr = [];
 		var confirm_distance = function(index){
@@ -175,6 +180,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	}
 
 	$scope.goAnchor = function(marker){
+		// when click marker in map
 		$scope.item = ($filter('filter')($scope.communities, {_id: marker._id}))[0];
 		$('#myModal').modal('show');
 	};
@@ -183,6 +189,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	$scope.pageSize = 10;
 }])
 	.directive('enterKey', function () {
+		// directive for press enter key in input box
 		return function (scope, element, attrs) {
 			element.bind("keydown keypress", function (event) {
 				if(event.which === 13) {
@@ -196,6 +203,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		};
 	})
 	.directive('convertToNumber', function() {
+		// directive for numerical select object
 		return {
 			require: 'ngModel',
 			link: function(scope, element, attrs, ngModel) {
@@ -209,6 +217,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		};
 	})
 	.directive('checkZip', function() {
+		// directive for check validate of zip code
 		return {
 			restrict: 'A',
 			require: 'ngModel',

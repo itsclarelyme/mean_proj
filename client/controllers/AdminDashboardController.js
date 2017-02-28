@@ -1,3 +1,5 @@
+/* Admin dashboard */
+
 app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFactory', 'toaster', function($scope, commFactory, usersFactory, toaster){
     //scope variable
     $scope.communities = [];
@@ -37,6 +39,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     };
 
     var approveComm = function(item, approved){
+        // ------------ approve or reject a requested community
         var reqItem = angular.copy(item);
         reqItem.status = approved ? 'Approved' : 'Rejected';
         commFactory.update_comm(reqItem, function(err, res){
@@ -51,6 +54,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     };
 
     var removeComm = function(item){
+        // ---------------- remove a community -----------------
         commFactory.remove_comm(item, function(err, res){
             if (!err){
                 $scope.communities.splice($scope.communities.indexOf(item), 1);
@@ -59,6 +63,7 @@ app.controller('AdminDashboardController', ['$scope', 'commFactory', 'usersFacto
     };
 
     var removeUser = function(item){
+        // -------------- remove a user ------------------
         usersFactory.remove_user(item._id, function(err, res){
             if (err){
                 // console.log(err);

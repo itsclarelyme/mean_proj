@@ -78,8 +78,28 @@ app.factory('usersFactory', ['$http', function($http){
    
   
 
-  this.add_user = function(newuser, callback){
-      $http.post('/user/new', newuser).then(function(data){
+    this.add_user = function(newuser, callback){
+        $http.post('/user/new', newuser).then(function(data){
+          console.log(data);
+          user = data.data;
+          if(typeof(callback) == 'function'){
+            callback(data);
+          }
+        })
+      };
+
+    this.retrieve_user = function(callback){
+      $http.get('/user').then(function(data){
+        console.log(data);
+        users = data.data;
+        if(typeof(callback) == 'function'){
+          callback(data);
+        }
+      })
+    };
+
+    this.remove_req = function(doc, callback){
+      $http.post('/req/remove', doc).then(function(data){
         console.log(data);
         user = data.data;
         if(typeof(callback) == 'function'){
@@ -87,35 +107,8 @@ app.factory('usersFactory', ['$http', function($http){
         }
       })
     }
-
-  this.retrieve_user = function(callback){
-    $http.get('/user').then(function(data){
-      console.log(data);
-      users = data.data;
-      if(typeof(callback) == 'function'){
-        callback(data);
-      }
-    })
   }
-
-  this.remove_req = function(doc, callback){
-    $http.post('/req/remove', doc).then(function(data){
-      console.log(data);
-      user = data.data;
-      if(typeof(callback) == 'function'){
-        callback(data);
-      }
-    })
-  }
-
-
-
-
-
-  }
-
 
   return new UsersFactory();
 
-
-}])
+}]);

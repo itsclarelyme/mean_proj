@@ -8,15 +8,29 @@ var Message = mongoose.model('Message');
 var controller = require('../controllers/controllers.js');
 var users = require('../controllers/users.js');
 
-
+/*
+=========  Routes of project
+ */
 module.exports = function(app) {
 
-  //users
-  app.get('/users', users.index);
-  app.get('/users/:id', users.index_login);
-  app.post('/login', users.login);
-  app.post('/register', users.register);
-  app.post('/profile', users.add_profile);
+	//users
+	app.get('/users', users.index);
+	app.get('/users/:id', users.index_login);
+	app.post('/user/new', function(req, res){
+		console.log('create new user');
+		controller.new_user(req, res);
+	});
+	app.get('/user', function(req, res){
+		console.log("retrieve all users");
+		controller.get_user(req, res);
+	});
+	app.get('/user/:id', function(req, res){
+		console.log("retrieve all users");
+		controller.get_userinfo(req, res);
+	});
+	app.post('/login', users.login);
+	app.post('/register', users.register);
+	app.post('/profile', users.add_profile);
 	app.get('/logout', users.logout);
 	app.route('/api/users/picture').post(users.changeProfilePicture);
 	app.route('/api/users/change-password').post(users.changePassword);
@@ -36,21 +50,6 @@ module.exports = function(app) {
 	app.post('/comm/new', function(req, res){
 		console.log('create new comm');
 		controller.comm_new(req, res);
-	});
-
-	app.post('/user/new', function(req, res){
-		console.log('create new user');
-		controller.new_user(req, res);
-	});
-
-	app.get('/user', function(req, res){
-		console.log("retrieve all users");
-		controller.get_user(req, res);
-	});
-
-	app.get('/user/:id', function(req, res){
-		console.log("retrieve all users");
-		controller.get_userinfo(req, res);
 	});
 
 	app.post('/comm/request', function(req, res){

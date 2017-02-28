@@ -1,3 +1,6 @@
+/*
+============= Main Root controller
+ */
 app.controller('AppController', ['$scope', 'usersFactory', function($scope, usersFactory){
     $scope.user = null;
 
@@ -18,10 +21,12 @@ app.controller('AppController', ['$scope', 'usersFactory', function($scope, user
         // console.log("user not logged in");
     }
 
+    // listener to login action
     $scope.$on('login', function(e, user){
         $scope.user = user;
     });
 
+    // listener to logout action
     $scope.$on('logout', function(e){
         $scope.user = null
     });

@@ -37,6 +37,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 	};
 
 	$scope.add_msg = function(){
+		// add a message in current event
 		var sendData = {
 			_author: $scope.user._id,
 			_event: $scope.thisevent._id,
@@ -57,6 +58,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 
 	$scope.reviewers = [];
 	$scope.open_complete_modal = function(){
+		// open modal for complete current event
 		var reviewers = [];
 		for (var i=0; i<$scope.thisevent.messages.length; i++){
 			var msgItem = $scope.thisevent.messages[i];
@@ -77,6 +79,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 	};
 
 	$scope.submit_complete = function(){
+		// request to server for complete current event
 		var reviewers = $filter('filter')($scope.reviewers, function(obj){
 			return obj.review.trim() != '';
 		});
@@ -102,6 +105,7 @@ app.controller('evntdetailController', ['$scope','$routeParams','$location', '$f
 	};
 
 	$scope.get_review = function(userItem) {
+		// get reviews and calc average of rating
 		eventFactory.get_reviews(userItem._id, function (err, res) {
 			if (!err) {
 				var reviewArr = res.data,

@@ -16,6 +16,7 @@ app.controller('DashboardController', ['$scope', '$location', 'commFactory', 'us
     }
 
     $scope.remove_req = function(req_comm){
+        // remove a ago join request
         // console.log(req_comm);
         $scope.rem_req={user: $scope.user._id, comm: req_comm};
         usersFactory.remove_req($scope.rem_req, function(returndata){

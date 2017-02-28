@@ -9,12 +9,15 @@ var path = require('path'),
 
 function UsersController() {
     var _this = this;
+
+    // get users
     this.index = function(req, res) {
         User.find({}).populate('_intro').exec(function(err, data) {
             res.json(data);
         });
     };
 
+    // get detail info of a user
     this.index_login = function(req, res) {
         console.log("Server - index_log - param id is " + req.params.id);
         User.findById({_id: req.params.id}).populate('_intro').populate('req_comms').populate('comms').exec(function(err, data) {
@@ -28,6 +31,7 @@ function UsersController() {
         });
     };
 
+    // login
     this.login = function(req, res) {
         console.log("Inside Server - login");
         console.log(req.body);
@@ -70,6 +74,7 @@ function UsersController() {
         })
     };
 
+    // register
     this.register = function(req, res) {
         console.log("inside server - registration");
         console.log(req.body);
@@ -111,6 +116,7 @@ function UsersController() {
         })
     };
 
+    // upsert profile to a user
     this.add_profile = function(req, res) {
         console.log("inside server - upsert profile");
         var reqData = req.body;
@@ -152,10 +158,12 @@ function UsersController() {
         }
     };
 
+    // logout
     this.logout = function (req, res) {
         res.redirect('/');
     };
 
+    // upload profile picture
     this.changeProfilePicture = function (req, res) {
         var upload = multer({
             dest: path.resolve('./client/images/profile_images/'), // Profile upload destination path
@@ -189,6 +197,7 @@ function UsersController() {
         });
     };
 
+    // change password
     this.changePassword = function(req, res){
         var reqBody = req.body;
         User.findOne({_id: reqBody._id}, function(err, user){
@@ -204,6 +213,7 @@ function UsersController() {
         })
     };
 
+    // remove a user
     this.removeUser = function(req, res){
         var id = req.body.id;
         User.findOne({_id: id}, function(err, user){

@@ -19,6 +19,7 @@ function Controller(){
 	// 	})
 	// }
 
+	// get list of communities
 	this.comm_get = function(req, res){
 		console.log("controller get all comm method");
 		var query = req.query || {};
@@ -31,6 +32,7 @@ function Controller(){
 		})
 	};
 
+	// get detail info of a comm
 	this.comm_getinfo = function(req, res){
 		console.log("controller get this specific comm method");
 		//console.log(req.params);
@@ -48,6 +50,7 @@ function Controller(){
 		})
 	};
 
+	// update a comm
 	this.comm_update = function(req, res){
 		var id = req.params.id;
 		if (!id)
@@ -60,6 +63,7 @@ function Controller(){
 		})
 	};
 
+	// approve or reject a join request
 	this.comm_approve_req = function(req, res){
 		var id = req.body.id,
 			userId = req.body.userId,
@@ -92,6 +96,7 @@ function Controller(){
 		})
 	};
 
+	// remove a comm
 	this.comm_delete = function(req, res){
 		var id = req.params.id;
 		if (!id)
@@ -104,7 +109,7 @@ function Controller(){
 		})
 	};
 
-
+	// get events of a comm
 	this.get_commevent = function(req, res){
 		console.log("controller getting all the events in this comm");
 		//console.log(req.params);
@@ -117,6 +122,7 @@ function Controller(){
 		})
 	};
 
+	// create a new comm
 	this.comm_new = function(req, res){
 		console.log("controller add comm");
 		console.log(req.body);
@@ -139,7 +145,7 @@ function Controller(){
 		})
 	};
 
-
+	// request a join to a comm
 	this.comm_req = function(req, res){
 		console.log("controller request to join comm");
 		if (!req.body.user)
@@ -172,6 +178,7 @@ function Controller(){
 	};
 
 
+	// create a new user
 	this.new_user = function(req, res){
 		console.log("controller add user");
 		console.log(req.body);
@@ -189,6 +196,7 @@ function Controller(){
 		})
 	};
 
+	// get list of users
 	this.get_user = function(req, res){
 		console.log("controller get all users");
 		User.find({}).populate('_intro').exec(function(err, data){
@@ -199,6 +207,7 @@ function Controller(){
 		})
 	};
 
+	// get detail info of a user
 	this.get_userinfo = function(req, res){
 		console.log("controller get all user info");
 		User.findOne({_id: req.params.id}).populate('comms').populate('req_comms').exec(function(err, data){
@@ -210,6 +219,7 @@ function Controller(){
 		})
 	};
 
+	// remove a join request
 	this.remove_comm_req = function(req, res){
 		console.log("controller remove request");
 		User.update({_id: req.body.user}, {$pull: {req_comms: req.body.comm}}).exec(function(err, user){
@@ -227,6 +237,7 @@ function Controller(){
 		});
 	};
 
+	// add a event to a comm
 	this.add_event = function(req, res){
 		console.log("Controller create new event");
 		var newevent = new Event(req.body);
@@ -246,6 +257,7 @@ function Controller(){
 		})
 	};
 
+	// get detail info of a event
 	this.get_event = function(req, res){
 		console.log("controller get event detail");
 		Event.findOne({_id: req.params.id}).deepPopulate(['poster._intro', 'messages._author._intro']).populate('_comm').exec(function(err, thisevent){
@@ -258,6 +270,7 @@ function Controller(){
 	};
 
 
+	// join to a event
 	this.join_event = function(req, res){
 		console.log("controller this user is joining this event");
 		Event.findOne({_id : req.body.thisevent}, function(err, thisevent){
@@ -279,6 +292,7 @@ function Controller(){
 		})
 	};
 
+	// get messages of a event
 	this.get_msg = function(req, res){
 		//console.log("controller get msg for this event");
 		//console.log(req.params);
@@ -292,13 +306,14 @@ function Controller(){
 		})
 	};
 
+	// add a message to a event
 	this.add_msg = function(req, res){
 		var newmsg = new Message(req.body);
 		if (!newmsg._event || !newmsg._author)
 			return res.status(422).send({message: 'invalid request data'});
 		Event.findOne({_id: newmsg._event}, function(err, event){
 			if (err || !event)
-				return res.status(422).send({message: 'cannot find event.'});
+				return res.status(422).send({message: 'can not find event.'});
 			if (event.status)
 				return res.status(422).send({message: 'sorry, this event was completed already.'});
 
@@ -317,6 +332,7 @@ function Controller(){
 		})
 	};
 
+	// complete a event
 	this.complete_event = function(req, res){
 		var eventId = req.body.eventId,
 			posterId = req.body.posterId,
@@ -345,6 +361,7 @@ function Controller(){
 		})
 	};
 
+	// get reviews of a user
 	this.getReviews = function(req, res){
 		var id = req.params.id;
 		Review.find({_user: id}).deepPopulate(['_poster._intro']).exec(function(err, result){
