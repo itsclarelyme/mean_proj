@@ -5,7 +5,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 	//name: "Admin person", Email: 'admin@admin.com', password: 'adminadmin', ranking: 0
 	$scope.user = {};
 	$scope.users = [];
-	$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_owCKIfiiSkH3Ytj-cy6iuTGxQpHXpA8";
+	$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_CMPcZspz69nGbm4u7vgDJ42pUejiENg";
 	var geocoder = new google.maps.Geocoder();
 
 	var get_login_session = function(user_id) {

@@ -12,7 +12,7 @@
   <div class="mt-10 row">
     <div class="col-xs-2">&nbsp;</div>
     <div class="col-xs-8">
-      <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyD_owCKIfiiSkH3Ytj-cy6iuTGxQpHXpA8"
+      <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyA_CMPcZspz69nGbm4u7vgDJ42pUejiENg"
            map-lazy-load-params="{{googleMapsUrl}}">
         <ng-map center="41,-87" zoom="8">
           <marker ng-repeat="markPoint in markPoints | limitTo:search_zip_code.limit" position="{{markPoint.lat}}, {{markPoint.lng}}" title="{{markPoint.title}}" on-click="goAnchor(markPoint)"></marker>
