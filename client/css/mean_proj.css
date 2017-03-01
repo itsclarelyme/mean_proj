@@ -224,7 +224,7 @@ ul.custom-nav li.icon {display: none;}
 }
 
 #user-text{
-	color: #08729e;
+	color: #A8F2FF;
 	font-weight: bold;
 }
 
@@ -481,14 +481,14 @@ tr td.control-label{
 
 .nav-tabs>li>a:focus,
 .nav-tabs>li>a:hover {
-	border-color: #DF9288 #DF9288 #DF9288 !important;
+	border-color: #4061c0 #4061c0 #4061c0 !important;
 }
 .nav>li>a:focus, .nav>li>a:hover{
-	background-color: #DF9288 !important;
+	background-color: #4061c0 !important;
 }
 
 .nav>li.active>a{
-	background-color: #DF9288 !important;
+	background-color: #4061c0 !important;
 	color: white !important;
 }
 
