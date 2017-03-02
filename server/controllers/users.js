@@ -78,7 +78,7 @@ function UsersController() {
     this.register = function(req, res) {
         console.log("inside server - registration");
         console.log(req.body);
-        req.body.role = (req.body.email == 'admin@ilendyou.com') ? 'admin' : 'user';
+        req.body.role = (req.body.email == 'admin@commhelper.com') ? 'admin' : 'user';
         User.findOne({email: req.body.email}, function(err, user){
         if (err){
             console.log("error getting user to check");
