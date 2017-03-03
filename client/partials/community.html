@@ -50,7 +50,7 @@
     </thead>
     <tbody>
       <tr dir-paginate='community in filterComms | filter:q | itemsPerPage: pageSize' current-page="currentPage">
-        <td><a style="font-weight: bold" href ng-click="searchByZipcode(community)">**** {{ community.comm_name }} ****</a></td>
+        <td><a style="font-weight: bold" href ng-click="searchByZipcode(community)">{{ community.comm_name }}</a></td>
         <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
         <td>{{community.admin._intro.first_name}} {{community.admin._intro.last_name}}</td>
         <td><!-- Button trigger modal -->
