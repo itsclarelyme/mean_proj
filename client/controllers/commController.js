@@ -162,7 +162,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 						if (status == 'OK'){
 							var dis = getDistance(origin_location, result[0].geometry.location);
 							// console.log(dis);
-							if (dis < 20){ // lesss than 20 mile
+							if (dis < 10){ // lesss than 20 mile radius to search communities
 								markers.push({_id: commObj._id, title: commObj.comm_name, lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()});
 								filterArr.push(commObj);
 							}
@@ -179,7 +179,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 			confirm_distance(0);
 	}
 
-	$scope.goAnchor = function(marker){
+	$scope.goAnchor=function(e, marker){
 		// when click marker in map
 		$scope.item = ($filter('filter')($scope.communities, {_id: marker._id}))[0];
 		$('#myModal').modal('show');
