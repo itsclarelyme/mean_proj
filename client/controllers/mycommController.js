@@ -1,5 +1,5 @@
 
-app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$location', function($scope, commFactory, usersFactory, $location){
+app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$location', 'toaster', function($scope, commFactory, usersFactory, $location, toaster){
     $scope.user = {};
 
     // //find comms that user is admin
@@ -24,5 +24,4 @@ app.controller('mycommController', ['$scope', 'commFactory', 'usersFactory', '$l
             }
         })
     };
-
 }]);

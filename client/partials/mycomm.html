@@ -5,11 +5,12 @@
     Please finish creating your <a href="#!/introduction/{{user._id}}">profile</a> to register
 </div>
 <div class="community">
-
     <table class="table">
         <thead>
         <tr>
             <th>Community</th>
+            <th>Zip Code</th>
+            <th>Description</th>
             <th>Created Date</th>
             <th>Members</th>
             <th>Actions</th>
@@ -18,10 +19,12 @@
         <tbody>
         <tr ng-repeat='community in user.comms | filter: {status: "Approved"}:true'>
             <td>{{ community.comm_name }}</td>
+            <td>{{community.zip_code}}</td>
+            <td><span ng-bind="community.description | limitTo:20"></span><span ng-if="community.description.length > 20">...</span></td>
             <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
             <td>{{community.member.length}}</td>
             <td>
-                <a href="/#!/comm/join/{{community._id}}"><button class="btn btn-danger">Enter Community</button></a>
+                <a href="/#!/comm/join/{{community._id}}"><button class="btn btn-sm btn-danger">Enter Community</button></a>
             </td>
         </tr>
         </tbody>
@@ -43,4 +46,3 @@
         </table>
     </div>
 </div>
-

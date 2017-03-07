@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$location', 'commFactory', 'usersFactory', function($scope, $location, commFactory, usersFactory){
+app.controller('DashboardController', ['$scope', '$location', 'commFactory', 'usersFactory', 'toaster', function($scope, $location, commFactory, usersFactory, toaster){
     $scope.user = {};
 
     // //find comms that user is admin
@@ -24,5 +24,24 @@ app.controller('DashboardController', ['$scope', '$location', 'commFactory', 'us
             get_login_session(usersFactory.getCookieData());
         })
     };
+
+    $scope.open_edit_modal = function(item){
+        $scope.item = angular.copy(item);
+        $('#editModal').modal('show');
+    };
+
+    $scope.update_comm = function(){
+        console.log($scope.item);
+        commFactory.update_comm($scope.item, function(err, res){
+            if (!err){
+                get_login_session(usersFactory.getCookieData());
+                toaster.pop('success', 'Success', 'Successfully updated.');
+            }
+            else {
+                toaster.pop('error', 'Error', 'Fail update.');
+            }
+            $('#editModal').modal('hide');
+        })
+    }
 
 }]);

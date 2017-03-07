@@ -36,20 +36,9 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 		})
 	};
 	comm_index();
-	$scope.preventErr = false;
-	$scope.createComm = function(newForm){
-		if (!newForm.zip_code.$valid){
-			toaster.pop('error', 'Error', 'Invalid zip code');
-			return;
-		}
+
+	$scope.createComm = function(){
 		// create a new community
-		var preventComm = $filter('filter')($scope.communities, {comm_name: $scope.community.comm_name, zip_code: $scope.community.zip_code});
-		if (preventComm.length>0){
-			$scope.preventErr = true;
-			toaster.pop('error', 'Error', 'Sorry, community already exists');
-			return;
-		}
-		$scope.preventErr = false;
 		$scope.community.admin = $scope.user;
 		commFactory.create_comm($scope.community, function(err, returnedata){
 			$scope.community = {};
@@ -173,7 +162,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 						if (status == 'OK'){
 							var dis = getDistance(origin_location, result[0].geometry.location);
 							// console.log(dis);
-							if (dis < 5){ // lesss than 20 mile
+							if (dis < 5){ // lesss than 5 mile radius to search communities
 								markers.push({_id: commObj._id, title: commObj.comm_name, lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()});
 								filterArr.push(commObj);
 							}
@@ -190,7 +179,7 @@ app.controller('commController', ['$scope', '$timeout', '$filter', 'commFactory'
 			confirm_distance(0);
 	}
 
-	$scope.goAnchor = function(e, marker){
+	$scope.goAnchor=function(e, marker){
 		// when click marker in map
 		$scope.item = ($filter('filter')($scope.communities, {_id: marker._id}))[0];
 		$('#myModal').modal('show');

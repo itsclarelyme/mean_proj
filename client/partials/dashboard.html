@@ -7,6 +7,8 @@
         <tr>
             <th>Community</th>
             <th>Created Date</th>
+            <th>Zip Code</th>
+            <th>Description</th>
             <th>Members</th>
             <th>Requesters</th>
             <th>Actions</th>
@@ -16,11 +18,14 @@
         <tr ng-repeat='community in user.comms | filter:{admin: user._id}:true'>
             <td>{{ community.comm_name }}</td>
             <td>{{community.updatedAt | date: "MMM. dd, yyyy"}}</td>
+            <td>{{community.zip_code}}</td>
+            <td><span ng-bind="community.description | limitTo:20"></span><span ng-if="community.description.length > 20">...</span></td>
             <td>{{community.member.length - 1}}</td>
             <td>{{community.requester.length}}</td>
             <td>
                 <a ng-if="community.status == 'Approved'" href="/#!/comm/manage/{{community._id}}"><button class="btn btn-danger">Manage Community</button></a>
                 <a ng-if="community.status != 'Approved'">{{community.status == 'Rejected' ? 'Rejected' : 'Pending Approve'}}</a>
+                <button class="btn btn-sm btn-primary ml-10" ng-click="open_edit_modal(community)">Edit Community</button>
                 <span ng-if="community.status != 'Approved'" class="btn btn-danger ml-10" ng-click="removeComm(community)">Delete</span>
             </td>
         </tr>
@@ -28,3 +33,38 @@
     </table>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+    <form ng-submit="editForm.$valid && update_comm()" name="editForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Community {{item.comm_name}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-4">Zip Code</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="zip_code" ng-model="item.zip_code" required ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/">
+                                <div ng-hide="editForm.zip_code.$valid">
+                                    <p style="color: red">Zip code is invalid</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-10">
+                            <label class="col-xs-4">Description</label>
+                            <div class="col-xs-8">
+                                <textarea class="form-control" rows="3" ng-model="item.description" name="description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a class="btn btn-danger ml-10" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

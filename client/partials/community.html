@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-2">&nbsp;</div>
     <div class="col-xs-6">
-      <input class="form-control" placeholder="please input zip code to search" ng-model="search_zip_code.val" enter-key="searchByZipcode()">
+      <input class="form-control" placeholder="please input Zip Code to search for communities within 5 miles" ng-model="search_zip_code.val" enter-key="searchByZipcode()">
     </div>
     <div class="col-xs-2">
       <button class="btn btn-primary" ng-click="searchByZipcode()">Search</button>
@@ -72,14 +72,18 @@
 
 <div class="community" ng-if="user._id">
     <h2>Add community</h2>
-    <form ng-submit="newForm.$valid && createComm()" name="newForm">
+    <form ng-submit="createComm(newForm)" name="newForm">
       <div class="form-group">
         <div class="row">
           <div class="col-xs-3">
             <label for="communityName">Community Name*</label>
             <input type="text" class="form-control" id="communityName" ng-model="community.comm_name" required>
+            <div ng-show="preventErr">
+              <p style="color: red">Sorry, community already exists</p>
+            </div>
             <label for="zip_code">Zip Code*</label>
-            <input type="text" class="form-control" id="zip_code" name="zip_code" ng-model="community.zip_code" required ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/">
+            <input type="text" class="form-control" ng-class="{'ng-invalid': !newForm.zip_code.$valid}" ng-style="{'border-color': !newForm.zip_code.$valid ? 'red' : ''}"
+                   id="zip_code" name="zip_code" ng-model="community.zip_code" required ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/">
             <div ng-hide="newForm.zip_code.$valid">
               <p style="color: red">Zip code is invalid</p>
             </div>
